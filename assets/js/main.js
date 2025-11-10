@@ -352,11 +352,19 @@
     document.addEventListener('scroll', () => raf || update(), { passive: true });
   }
 
-  // Blog posts (sample data)
+  // Blog posts (curated)
   const posts = [
-    { title: 'Designing with Motion', tags: ['design'], date: '2025-10-01', excerpt: 'Principles for tasteful animation.', img: '/assets/img/blog/design.svg' },
-    { title: 'DevOps for Solo Devs', tags: ['devops'], date: '2025-09-20', excerpt: 'CI/CD without the pain.', img: '/assets/img/blog/devops.svg' },
-    { title: 'Cultural UX Insights', tags: ['culture', 'design'], date: '2025-08-15', excerpt: 'Cross‑cultural design notes.', img: '/assets/img/blog/culture.svg' }
+    { title: 'Why Subtle Motion Improves UX in 2025', tags: ['design'], date: '2025-11-10', excerpt: 'Micro‑interactions guide attention, reduce cognitive load, and create a premium feel—without distracting users.' },
+    { title: 'Ship Faster with GitHub Actions Matrix Builds', tags: ['devops'], date: '2025-11-05', excerpt: 'Parallelize tests across Node versions and OSes, cache dependencies smartly, and keep pipelines under 5 minutes.' },
+    { title: 'Designing for Dark Mode: Practical Contrast & Color', tags: ['design'], date: '2025-10-28', excerpt: 'Avoid pure black, lean on semantic tokens, and validate contrast for real environments and OLED screens.' },
+    { title: 'Pragmatic Performance Budgets for the Frontend', tags: ['devops','design'], date: '2025-10-20', excerpt: 'Set budgets for JS, CLS, and LCP—and enforce them with CI so regressions never reach production.' },
+    { title: 'Cultural UX: RTL, Locales, and Emoji Pitfalls', tags: ['culture','design'], date: '2025-10-12', excerpt: 'Layout mirroring, pluralization, and font fallback can break faster than you think—plan for them upfront.' },
+    { title: 'From Monolith to Services—Without the Pain', tags: ['devops'], date: '2025-10-01', excerpt: 'Strangle patterns, well‑defined boundaries, and gradual extraction keep delivery running while you split.' },
+    { title: 'Animating Data Viz Responsibly', tags: ['design'], date: '2025-09-22', excerpt: 'Use motion to encode change over time, respect reduced‑motion settings, and avoid misleading easing.' },
+    { title: 'Secure by Default: Handling Secrets in Frontend', tags: ['devops'], date: '2025-09-15', excerpt: 'Never ship secrets. Use server proxies, signed URLs, and environment‑based configuration safely.' },
+    { title: 'Design Tokens: One Source of Truth', tags: ['design'], date: '2025-09-05', excerpt: 'Scale themes and brands with tokens flowing from Figma to code—linted, versioned, and tested.' },
+    { title: 'Infra as Code for Solo Devs', tags: ['devops'], date: '2025-08-25', excerpt: 'Use Terraform Lite patterns, remote state, and modules to keep infra reproducible without heavy overhead.' },
+    { title: 'Cross‑Cultural Product Feedback Loops', tags: ['culture'], date: '2025-08-15', excerpt: 'Align discovery sessions, translation quality, and local expectations to prevent product‑market misreads.' }
   ];
   const blogList = qs('#blogList');
   const blogSearch = qs('#blogSearch');
