@@ -111,6 +111,7 @@
   (async () => {
     const items = qsa('.project-card.neo');
     for (const card of items) {
+      if (card.hasAttribute('data-thumb')) continue; // use provided thumbnail
       const live = card.getAttribute('data-live') || card.querySelector('.actions a[href]')?.href;
       if (!live || live === '#') continue;
       const img = await fetchOg(live);
