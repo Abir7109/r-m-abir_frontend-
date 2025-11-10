@@ -765,16 +765,37 @@
   let learnedResponses = JSON.parse(localStorage.getItem(LEARNED_KEY) || '[]');
   let sharedKnowledge = [];
   
-  // Load shared knowledge base from server
-  fetch('/assets/data/bot-knowledge.json')
-    .then(res => res.json())
-    .then(data => {
-      sharedKnowledge = data.learnedResponses || [];
-      console.log('✅ Loaded shared knowledge base:', sharedKnowledge.length, 'entries');
-    })
-    .catch(err => {
-      console.warn('⚠️ Could not load shared knowledge base:', err);
-    });
+  // API endpoint - auto-detect if on Vercel or local
+  const API_BASE = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000' 
+    : window.location.origin;
+  
+  // Load shared knowledge base from MongoDB via API
+  async function loadSharedKnowledge() {
+    try {
+      const response = await fetch(`${API_BASE}/api/bot-knowledge`);
+      const data = await response.json();
+      
+      if (data.success) {
+        sharedKnowledge = data.learnedResponses || [];
+        console.log('✅ Loaded shared knowledge from MongoDB:', sharedKnowledge.length, 'entries');
+      }
+    } catch (err) {
+      console.warn('⚠️ Could not load shared knowledge:', err);
+      // Fallback to static file
+      try {
+        const fallback = await fetch('/assets/data/bot-knowledge.json');
+        const fallbackData = await fallback.json();
+        sharedKnowledge = fallbackData.learnedResponses || [];
+        console.log('💾 Using fallback knowledge base:', sharedKnowledge.length, 'entries');
+      } catch (e) {
+        console.error('❌ Failed to load any knowledge base');
+      }
+    }
+  }
+  
+  // Initialize knowledge on page load
+  loadSharedKnowledge();
   
   // Find similar learned response
   function findLearnedResponse(query) {
@@ -804,9 +825,41 @@
   }
   
   // Save learned response
-  function learnResponse(question, answer) {
-    learnedResponses.push({ question, answer, timestamp: Date.now() });
+  async function learnResponse(question, answer) {
+    // Save to localStorage immediately
+    const newResponse = { question, answer, timestamp: Date.now() };
+    learnedResponses.push(newResponse);
     localStorage.setItem(LEARNED_KEY, JSON.stringify(learnedResponses));
+    
+    // Also save to MongoDB for all users
+    try {
+      const response = await fetch(`${API_BASE}/api/bot-knowledge`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          question: question,
+          answer: answer,
+          category: 'user-contributed'
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.success) {
+        console.log('✅ Response saved to MongoDB for all users!');
+        // Reload shared knowledge to include new response
+        await loadSharedKnowledge();
+      } else if (response.status === 409) {
+        console.log('⚠️ Question already exists in database');
+      } else {
+        console.warn('⚠️ Could not save to database:', data.error);
+      }
+    } catch (err) {
+      console.error('❌ Failed to save to MongoDB:', err);
+      console.log('💡 Response saved locally only');
+    }
   }
 
   function botReply(q) {

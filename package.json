@@ -1,0 +1,17 @@
+{
+  "name": "r-m-abir-portfolio",
+  "version": "1.0.0",
+  "description": "R.M.Abir71 Portfolio with AI Learning Assistant",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "dependencies": {
+    "mongodb": "^6.3.0"
+  },
+  "devDependencies": {},
+  "keywords": ["portfolio", "ai", "chatbot"],
+  "author": "R.M.Abir71",
+  "license": "MIT"
+}
