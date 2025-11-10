@@ -194,18 +194,35 @@
       <section id="journey" class="section journey-section" aria-labelledby="journey-title">
         <h2 id="journey-title">Journey</h2>
         <div class="journey-route" id="journeyRoute" aria-label="Career route">
-          <svg viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet" class="route-svg" aria-hidden="true">
+          <!-- Desktop route -->
+          <svg id="journeySvgDesktop" viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet" class="route-svg" aria-hidden="true">
             <defs>
-              <linearGradient id="routeGrad" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0%" stop-color="#1A3D64" />
-                <stop offset="100%" stop-color="#1D546C" />
+              <linearGradient id="journeyGradD" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%" stop-color="#00ffff" />
+                <stop offset="100%" stop-color="#0077ff" />
               </linearGradient>
-              <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="journeyGlowD"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
-            <path id="routePath" d="M50,250 C200,120 300,120 450,220 S700,300 950,120" fill="none" stroke="url(#routeGrad)" stroke-width="10" stroke-linecap="round"/>
-            <circle id="routeDot" r="7" fill="#9fd3ff" filter="url(#glow)" />
+            <path id="routeBase" d="M50,250 C200,120 300,120 450,220 S700,300 950,120" fill="none" stroke="#1a3d64" stroke-opacity=".35" stroke-width="10" stroke-linecap="round"/>
+            <path id="routeProgress" d="M50,250 C200,120 300,120 450,220 S700,300 950,120" fill="none" stroke="url(#journeyGradD)" stroke-width="10" stroke-linecap="round" filter="url(#journeyGlowD)"/>
+            <circle id="routeDot" r="7" fill="#9fd3ff" filter="url(#journeyGlowD)" />
           </svg>
-          <!-- Checkpoint labels will be positioned by JS -->
+
+          <!-- Mobile route (vertical) -->
+          <svg id="journeySvgMobile" viewBox="0 0 400 600" class="route-svg route-svg--mobile" aria-hidden="true">
+            <defs>
+              <linearGradient id="journeyGradM" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#00ffff" />
+                <stop offset="100%" stop-color="#0077ff" />
+              </linearGradient>
+              <filter id="journeyGlowM"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path id="routeBaseMobile" d="M60,40 C200,100 200,220 200,300 S200,500 340,560" fill="none" stroke="#1a3d64" stroke-opacity=".35" stroke-width="12" stroke-linecap="round"/>
+            <path id="routeProgressMobile" d="M60,40 C200,100 200,220 200,300 S200,500 340,560" fill="none" stroke="url(#journeyGradM)" stroke-width="12" stroke-linecap="round" filter="url(#journeyGlowM)"/>
+            <circle id="routeDotMobile" r="8" fill="#9fd3ff" filter="url(#journeyGlowM)" />
+          </svg>
+
+          <!-- Checkpoints are positioned by JS -->
         </div>
       </section>
 

@@ -107,43 +107,92 @@
 
   // Journey route animation and checkpoints
   const routeEl = qs('#journeyRoute');
-  const path = qs('#routePath');
-  const dot = qs('#routeDot');
-  if (routeEl && path && dot) {
+  function getActivePath() {
+    const dSvg = qs('#journeySvgDesktop');
+    const mSvg = qs('#journeySvgMobile');
+    const dVisible = dSvg && getComputedStyle(dSvg).display !== 'none';
+    if (dVisible) return { path: qs('#routeProgress'), base: qs('#routeBase'), dot: qs('#routeDot') };
+    return { path: qs('#routeProgressMobile'), base: qs('#routeBaseMobile'), dot: qs('#routeDotMobile') };
+  }
+  if (routeEl) {
     const cps = [
-      { pos: 0.05, year: '2016', text: 'Start Coding' },
-      { pos: 0.35, year: '2020', text: '1st Successful Website' },
-      { pos: 0.65, year: '2022', text: '1st Income' },
-      { pos: 0.95, year: '2025', text: 'Professional Coder' },
+      { pos: 0.05, year: '2016', text: 'Start Coding 💻' },
+      { pos: 0.35, year: '2020', text: '1st Successful Website 🌐' },
+      { pos: 0.65, year: '2022', text: '1st Income 💰' },
+      { pos: 0.95, year: '2025', text: 'Professional Coder 🚀' },
     ];
-    const len = path.getTotalLength();
 
-    // place checkpoints
-    cps.forEach(cp => {
-      const p = path.getPointAtLength(cp.pos * len);
-      const el = document.createElement('div');
-      el.className = 'checkpoint ' + (cp.pos < 0.5 ? 'above' : 'below');
-      el.style.left = (p.x / path.ownerSVGElement.viewBox.baseVal.width * 100) + '%';
-      el.style.top = (p.y / path.ownerSVGElement.viewBox.baseVal.height * 100) + '%';
-      el.innerHTML = `<div class=\"dot\"></div><span class=\"pill\">${cp.year}</span><div class=\"card\"><strong>${cp.year}</strong><br/>${cp.text}</div>`;
-      routeEl.appendChild(el);
-      cp._el = el; cp._abs = cp.pos * len;
-    });
+    function setupCheckpoints(pathEl) {
+      const len = pathEl.getTotalLength();
+      cps.forEach(cp => {
+        const p = pathEl.getPointAtLength(cp.pos * len);
+        const el = document.createElement('div');
+        el.className = 'checkpoint ' + (cp.pos < 0.5 ? 'above' : 'below');
+        el.style.left = (p.x / pathEl.ownerSVGElement.viewBox.baseVal.width * 100) + '%';
+        el.style.top = (p.y / pathEl.ownerSVGElement.viewBox.baseVal.height * 100) + '%';
+        el.innerHTML = `<div class=\"dot\"></div><span class=\"pill\">${cp.year}</span><div class=\"card\"><strong>${cp.year}</strong><br/>${cp.text}</div>`;
+        routeEl.appendChild(el);
+        cp._el = el; cp._abs = cp.pos * len;
+      });
+      return len;
+    }
 
-    let t0 = null; const dur = 12000; // 12s
-    function step(ts) {
-      if (!t0) t0 = ts; const e = ts - t0; const r = (e % dur) / dur; // 0..1
-      const pt = path.getPointAtLength(r * len);
+    let { path: prog, base, dot } = getActivePath();
+    let totalLen = setupCheckpoints(base);
+
+    // initialize dash arrays
+    function initPath(p) {
+      const L = p.getTotalLength();
+      p.style.strokeDasharray = String(L);
+      p.style.strokeDashoffset = String(L);
+    }
+    initPath(prog);
+
+    function onResize() {
+      // Recompute for current visible SVG
+      const active = getActivePath();
+      if (active.path !== prog) {
+        // clear old checkpoints
+        cps.forEach(cp => cp._el && cp._el.remove());
+        prog = active.path; base = active.base; dot = active.dot;
+        totalLen = setupCheckpoints(base);
+        initPath(prog);
+        update();
+      }
+    }
+    window.addEventListener('resize', () => requestAnimationFrame(onResize));
+
+    function computeScrollProgress() {
+      const rect = routeEl.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const start = vh * 0.15; const end = rect.height + vh * 0.3;
+      const y = Math.min(Math.max(start - rect.top, 0), end);
+      return y / end; // 0..1
+    }
+
+    function update() {
+      const r = computeScrollProgress();
+      const L = prog.getTotalLength();
+      prog.style.strokeDashoffset = String(L * (1 - r));
+      const pt = base.getPointAtLength(r * totalLen);
       dot.setAttribute('cx', pt.x);
       dot.setAttribute('cy', pt.y);
-      // glow checkpoints that are passed
+      // activate checkpoints
       cps.forEach(cp => {
-        const hit = r * len >= cp._abs - 2; // small lead
-        cp._el.classList.toggle('hit', hit);
+        const hit = r * totalLen >= cp._abs - 2;
+        cp._el?.classList.toggle('hit', hit);
+        cp._el?.classList.toggle('active', Math.abs(r * totalLen - cp._abs) < 8);
       });
-      requestAnimationFrame(step);
     }
-    requestAnimationFrame(step);
+
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) {
+        const loop = () => { update(); raf = requestAnimationFrame(loop); };
+        if (!raf) loop();
+      } else if (raf) { cancelAnimationFrame(raf); raf = null; }
+    }, { threshold: 0.05 });
+    let raf = null; io.observe(routeEl);
+    document.addEventListener('scroll', () => raf || update(), { passive: true });
   }
 
   // Blog posts (sample data)
