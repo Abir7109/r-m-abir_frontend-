@@ -755,12 +755,78 @@
   let conversationContext = {
     askedAbout: [],
     messageCount: 0,
-    lastTopic: null
+    lastTopic: null,
+    learningMode: false,
+    pendingQuestion: null
   };
+  
+  // Load learned responses from localStorage
+  const LEARNED_KEY = 'bot:learned:v1';
+  let learnedResponses = JSON.parse(localStorage.getItem(LEARNED_KEY) || '[]');
+  
+  // Find similar learned response
+  function findLearnedResponse(query) {
+    const q = query.toLowerCase().trim();
+    for (const item of learnedResponses) {
+      // Check for exact match or partial match
+      if (item.question.toLowerCase() === q) return item.answer;
+      // Check if query contains key words from learned question
+      const qWords = q.split(/\s+/).filter(w => w.length > 3);
+      const lWords = item.question.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+      const matches = qWords.filter(w => lWords.some(lw => lw.includes(w) || w.includes(lw)));
+      if (matches.length >= Math.min(2, qWords.length)) return item.answer;
+    }
+    return null;
+  }
+  
+  // Save learned response
+  function learnResponse(question, answer) {
+    learnedResponses.push({ question, answer, timestamp: Date.now() });
+    localStorage.setItem(LEARNED_KEY, JSON.stringify(learnedResponses));
+  }
 
   function botReply(q) {
     const s = q.toLowerCase().trim();
     conversationContext.messageCount++;
+    
+    // Check learned responses first
+    const learned = findLearnedResponse(s);
+    if (learned) {
+      return '💡 ' + learned;
+    }
+    
+    // Self-Identity Questions
+    if (/\b(who\s+are\s+you|what\s+are\s+you|your\s+name)\b/i.test(s)) {
+      conversationContext.lastTopic = 'identity';
+      return '🤖 I\'m **Neural Assistant v2.1** - an AI-powered portfolio guide created by **R.M.Abir71** (my boss!) to help visitors explore his work, skills, and experience. I\'m here to answer your questions and make your portfolio browsing experience smooth and interactive!';
+    }
+    
+    // Bot's Boss
+    if (/\b(your\s+boss|your\s+creator|your\s+owner|who\s+made\s+you|who\s+created\s+you|your\s+master)\b/i.test(s)) {
+      conversationContext.lastTopic = 'boss';
+      return '👨‍💻 My boss is **R.M.Abir71** - a talented full-stack developer with 7+ years of experience! He created me to assist visitors like you. He\'s available for freelance work and collaborations. Want to know more about his projects or skills?';
+    }
+    
+    // How are you (AI feelings)
+    if (/\b(how\s+are\s+you|how\s+r\s+u|how\s+you\s+doing|how\s+do\s+you\s+feel)\b/i.test(s)) {
+      conversationContext.lastTopic = 'feelings';
+      const feelings = [
+        '⚡ I\'m functioning perfectly! All systems online and ready to help you explore the portfolio!',
+        '🌟 Doing great! Excited to help you discover amazing projects and skills!',
+        '🚀 Running smoothly at optimal performance! How can I assist you today?'
+      ];
+      return feelings[Math.floor(Math.random() * feelings.length)];
+    }
+    
+    // Bot capabilities and limitations
+    if (/\b(are\s+you\s+real|are\s+you\s+human|are\s+you\s+ai|are\s+you\s+robot)\b/i.test(s)) {
+      return '🤖 I\'m an AI assistant - not human, but I try my best to be helpful! I was created by R.M.Abir71 to guide you through this portfolio. Think of me as your digital tour guide!';
+    }
+    
+    // Bot's purpose
+    if (/\b(why\s+are\s+you\s+here|your\s+purpose|what\s+do\s+you\s+do|your\s+job)\b/i.test(s)) {
+      return '🎯 My purpose is to help visitors like you explore R.M.Abir71\'s portfolio! I can answer questions about projects, skills, experience, and help you get in touch. I\'m here to make your visit informative and enjoyable!';
+    }
     
     // Greetings
     if (/^(hi|hello|hey|greetings|good\s*(morning|afternoon|evening)|sup|yo)\b/i.test(s)) {
@@ -905,18 +971,9 @@
       return '🤔 I didn\'t quite catch that. Try asking about projects, skills, experience, or contact info!';
     }
     
-    // Default - Smart suggestions based on what hasn't been asked
-    const notAskedYet = [];
-    if (!conversationContext.askedAbout.includes('projects')) notAskedYet.push('projects');
-    if (!conversationContext.askedAbout.includes('skills')) notAskedYet.push('skills');
-    if (!conversationContext.askedAbout.includes('experience')) notAskedYet.push('experience');
-    if (!conversationContext.askedAbout.includes('contact')) notAskedYet.push('contact');
-    
-    if (notAskedYet.length > 0) {
-      return `🤖 I\'m not sure about that, but I can tell you about:\n• ${notAskedYet.join('\n• ')}\n\nWhat interests you?`;
-    }
-    
-    return '🤖 Interesting question! I specialize in portfolio info. Try asking about projects, skills, tech stack, experience, or how to get in touch!';
+    // Default - Offer to learn
+    conversationContext.pendingQuestion = q;
+    return '📚 **LEARNING MODE**\n\nI don\'t know the answer to that yet, but I can learn! Would you like to teach me the answer? If yes, type your answer in the next message. If not, just ask something else!';
   }
   
   if (botToggle && botPanel && botClose && botForm && botInput && botBody) {
@@ -935,6 +992,34 @@
       e.preventDefault();
       const q = botInput.value.trim(); 
       if (!q) return;
+      
+      // Check if in learning mode
+      if (conversationContext.pendingQuestion) {
+        // Check if user wants to cancel learning
+        if (/^(cancel|no|skip|nope|never\s*mind)$/i.test(q)) {
+          botSay('You: ' + q, true);
+          botInput.value = '';
+          conversationContext.pendingQuestion = null;
+          setTimeout(() => {
+            botSay('Assistant: ❌ Learning cancelled. Feel free to ask me anything else!');
+          }, 400);
+          return;
+        }
+        
+        // Save the learned response
+        const question = conversationContext.pendingQuestion;
+        const answer = q;
+        learnResponse(question, answer);
+        
+        botSay('You: ' + q, true);
+        botInput.value = '';
+        conversationContext.pendingQuestion = null;
+        
+        setTimeout(() => {
+          botSay('Assistant: ✅ **Learned!** Thank you for teaching me! Now I know how to answer "' + question + '". Ask me that question again anytime!');
+        }, 400);
+        return;
+      }
       
       botSay('You: ' + q, true);
       botInput.value = '';
