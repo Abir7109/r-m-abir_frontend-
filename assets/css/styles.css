@@ -1446,26 +1446,7 @@ mark.hl { background: rgba(159,211,255,0.25); color: inherit; padding: 0 2px; bo
 }
 
 .bot-pulse-ring {
-  position: absolute;
-  inset: -4px;
-  border: 2px solid rgba(0, 255, 255, 0.6);
-  border-radius: 50%;
-  animation: botRingPulse 2s ease-out infinite;
-}
-
-.bot-pulse-ring-2 {
-  animation-delay: 1s;
-}
-
-@keyframes botRingPulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
+  display: none;
 }
 
 .bot-panel-sci {
