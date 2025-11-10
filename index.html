@@ -190,38 +190,207 @@
       </section>
 
       <!-- Journey -->
-      <section id="journey" class="section journey-section" aria-labelledby="journey-title">
-        <h2 id="journey-title">Journey</h2>
-        <div class="journey-route" id="journeyRoute" aria-label="Career route">
-          <!-- Desktop route -->
-          <svg id="journeySvgDesktop" viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet" class="route-svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="journeyGradD" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0%" stop-color="#00ffff" />
-                <stop offset="100%" stop-color="#0077ff" />
-              </linearGradient>
-              <filter id="journeyGlowD"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <path id="routeBase" d="M50,250 C200,120 300,120 450,220 S700,300 950,120" fill="none" stroke="#1a3d64" stroke-opacity=".35" stroke-width="10" stroke-linecap="round"/>
-            <path id="routeProgress" d="M50,250 C200,120 300,120 450,220 S700,300 950,120" fill="none" stroke="url(#journeyGradD)" stroke-width="10" stroke-linecap="round" filter="url(#journeyGlowD)"/>
-            <circle id="routeDot" r="7" fill="#9fd3ff" filter="url(#journeyGlowD)" />
-          </svg>
+      <section id="journey" class="section journey-section-modern" aria-labelledby="journey-title">
+        <div class="journey-header">
+          <h2 id="journey-title" class="journey-title">My Journey</h2>
+          <p class="journey-subtitle">From Beginner to Professional Developer</p>
+        </div>
 
-          <!-- Mobile route (vertical) -->
-          <svg id="journeySvgMobile" viewBox="0 0 400 600" class="route-svg route-svg--mobile" aria-hidden="true">
-            <defs>
-              <linearGradient id="journeyGradM" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stop-color="#00ffff" />
-                <stop offset="100%" stop-color="#0077ff" />
-              </linearGradient>
-              <filter id="journeyGlowM"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <path id="routeBaseMobile" d="M60,40 C200,100 200,220 200,300 S200,500 340,560" fill="none" stroke="#1a3d64" stroke-opacity=".35" stroke-width="12" stroke-linecap="round"/>
-            <path id="routeProgressMobile" d="M60,40 C200,100 200,220 200,300 S200,500 340,560" fill="none" stroke="url(#journeyGradM)" stroke-width="12" stroke-linecap="round" filter="url(#journeyGlowM)"/>
-            <circle id="routeDotMobile" r="8" fill="#9fd3ff" filter="url(#journeyGlowM)" />
-          </svg>
+        <div class="journey-timeline">
+          <!-- Timeline Line -->
+          <div class="timeline-line" id="timelineLine">
+            <div class="timeline-progress" id="timelineProgress"></div>
+          </div>
 
-          <!-- Checkpoints are positioned by JS -->
+          <!-- Milestone 1 -->
+          <article class="milestone milestone-left" data-year="2016">
+            <div class="milestone-content">
+              <div class="milestone-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+                </svg>
+              </div>
+              <div class="milestone-date">
+                <span class="year">2016</span>
+                <span class="month">January</span>
+              </div>
+              <h3 class="milestone-title">Started Coding Journey</h3>
+              <p class="milestone-desc">Discovered the world of programming with HTML, CSS, and JavaScript. Built my first "Hello World" website.</p>
+              <div class="milestone-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </div>
+            <div class="milestone-dot">
+              <div class="dot-inner"></div>
+              <div class="dot-pulse"></div>
+            </div>
+          </article>
+
+          <!-- Milestone 2 -->
+          <article class="milestone milestone-right" data-year="2018">
+            <div class="milestone-content">
+              <div class="milestone-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <div class="milestone-date">
+                <span class="year">2018</span>
+                <span class="month">June</span>
+              </div>
+              <h3 class="milestone-title">Mastered Frontend Frameworks</h3>
+              <p class="milestone-desc">Dove deep into React.js and modern frontend development. Created dynamic, responsive web applications.</p>
+              <div class="milestone-tags">
+                <span class="tag">React</span>
+                <span class="tag">Redux</span>
+                <span class="tag">TypeScript</span>
+              </div>
+            </div>
+            <div class="milestone-dot">
+              <div class="dot-inner"></div>
+              <div class="dot-pulse"></div>
+            </div>
+          </article>
+
+          <!-- Milestone 3 -->
+          <article class="milestone milestone-left" data-year="2020">
+            <div class="milestone-content">
+              <div class="milestone-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </div>
+              <div class="milestone-date">
+                <span class="year">2020</span>
+                <span class="month">March</span>
+              </div>
+              <h3 class="milestone-title">First Successful Project</h3>
+              <p class="milestone-desc">Launched my first full-stack web application serving 100+ users. Integrated payment systems and real-time features.</p>
+              <div class="milestone-tags">
+                <span class="tag">Full-Stack</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">MongoDB</span>
+              </div>
+              <div class="milestone-stats">
+                <div class="stat">
+                  <span class="stat-value">100+</span>
+                  <span class="stat-label">Users</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">5k+</span>
+                  <span class="stat-label">Lines of Code</span>
+                </div>
+              </div>
+            </div>
+            <div class="milestone-dot">
+              <div class="dot-inner"></div>
+              <div class="dot-pulse"></div>
+            </div>
+          </article>
+
+          <!-- Milestone 4 -->
+          <article class="milestone milestone-right" data-year="2022">
+            <div class="milestone-content">
+              <div class="milestone-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+                </svg>
+              </div>
+              <div class="milestone-date">
+                <span class="year">2022</span>
+                <span class="month">September</span>
+              </div>
+              <h3 class="milestone-title">First Professional Income</h3>
+              <p class="milestone-desc">Started freelancing and landed first paid clients. Delivered e-commerce solutions and custom web applications.</p>
+              <div class="milestone-tags">
+                <span class="tag">Freelance</span>
+                <span class="tag">E-commerce</span>
+                <span class="tag">API Integration</span>
+              </div>
+              <div class="milestone-stats">
+                <div class="stat">
+                  <span class="stat-value">10+</span>
+                  <span class="stat-label">Clients</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">15+</span>
+                  <span class="stat-label">Projects</span>
+                </div>
+              </div>
+            </div>
+            <div class="milestone-dot">
+              <div class="dot-inner"></div>
+              <div class="dot-pulse"></div>
+            </div>
+          </article>
+
+          <!-- Milestone 5 -->
+          <article class="milestone milestone-left milestone-current" data-year="2025">
+            <div class="milestone-content">
+              <div class="milestone-icon">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M12 .5L8.5 4 12 7.5 15.5 4 12 .5zM.5 8.5L4 12 .5 15.5V8.5zm23 0v7L20 12l3.5-3.5zm-11 11L8.5 16 12 12.5 15.5 16 12.5 19.5z"/>
+                </svg>
+              </div>
+              <div class="milestone-date">
+                <span class="year">2025</span>
+                <span class="month">Present</span>
+              </div>
+              <h3 class="milestone-title">Professional Full-Stack Developer</h3>
+              <p class="milestone-desc">Specialized in modern web technologies, building scalable applications with best practices. Continuously learning and growing.</p>
+              <div class="milestone-tags">
+                <span class="tag">React</span>
+                <span class="tag">Next.js</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Docker</span>
+              </div>
+              <div class="milestone-stats">
+                <div class="stat">
+                  <span class="stat-value">30+</span>
+                  <span class="stat-label">Projects</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">7+</span>
+                  <span class="stat-label">Years Exp</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-value">50k+</span>
+                  <span class="stat-label">Lines Written</span>
+                </div>
+              </div>
+            </div>
+            <div class="milestone-dot">
+              <div class="dot-inner"></div>
+              <div class="dot-pulse"></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Journey Stats -->
+        <div class="journey-stats">
+          <div class="stat-card">
+            <div class="stat-icon">🚀</div>
+            <div class="stat-number" data-target="30">0</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💼</div>
+            <div class="stat-number" data-target="10">0</div>
+            <div class="stat-label">Happy Clients</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⏱️</div>
+            <div class="stat-number" data-target="7">0</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💻</div>
+            <div class="stat-number" data-target="50">0</div>
+            <div class="stat-label">Technologies Mastered</div>
+          </div>
         </div>
       </section>
 
