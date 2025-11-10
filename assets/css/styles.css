@@ -635,7 +635,46 @@ input:checked + .slider:before { transform: translateX(22px); }
   }
   
   .milestone-content {
-    padding: 24px;
+    padding: 20px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .milestone-title {
+    font-size: 1.3rem;
+    line-height: 1.4;
+  }
+  
+  .milestone-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .milestone-tags {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  
+  .milestone-tags .tag {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+  
+  .milestone-stats {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .milestone-stats .stat {
+    min-width: auto;
+  }
+  
+  .milestone-stats .stat-value {
+    font-size: 1.2rem;
+  }
+  
+  .milestone-stats .stat-label {
+    font-size: 0.65rem;
   }
   
   .journey-stats {
