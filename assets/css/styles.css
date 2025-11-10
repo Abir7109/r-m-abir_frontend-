@@ -62,7 +62,16 @@ input:checked + .slider:before { transform: translateX(22px); }
   filter: saturate(108%); }
 .hero-content { position: relative; z-index: 1; padding: 20px 10px; max-width: 640px; animation: fadeIn 1s ease both; }
 .subtitle { font-size: clamp(1rem, 2.6vw, 1.5rem); color: var(--c-muted); min-height: 1.5em; }
-.subtitle #typewriter { color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.55), 0 0 2px rgba(0,0,0,0.85); }
+.subtitle #typewriter { 
+  color: transparent;
+  background: linear-gradient(90deg, #9fd3ff, #00e0ff, #9fd3ff);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.55), 0 0 2px rgba(0,0,0,0.85);
+  -webkit-text-stroke: 0.5px rgba(0,0,0,0.35);
+  animation: gradientShift 8s linear infinite;
+}
+@keyframes gradientShift { from { background-position: 0% 0; } to { background-position: 200% 0; } }
 
 @media (max-width: 600px) {
   .hero { padding-inline: 16px; }
