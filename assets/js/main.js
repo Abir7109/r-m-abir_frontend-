@@ -610,7 +610,10 @@
   // Skills animation (bars + circles)
   const skills = qs('#skills');
   if (skills) {
+    let hasRun = false;
     const run = () => {
+      if (hasRun) return;
+      hasRun = true;
       qsa('.bar-fill', skills).forEach(b => {
         const p = Number(b.dataset.p || '0');
         b.style.width = p + '%';
@@ -648,7 +651,7 @@
     };
     const io = new IntersectionObserver((entries) => {
       if (entries.some(e => e.isIntersecting)) { run(); io.disconnect(); }
-    }, { threshold: 0.25 });
+    }, { threshold: 0.1 });
     io.observe(skills);
   }
 
