@@ -165,13 +165,15 @@
     function computeScrollProgress() {
       const rect = routeEl.getBoundingClientRect();
       const vh = window.innerHeight;
-      // Faster progression: start sooner and finish earlier
-      const start = vh * 0.10; 
-      const end = rect.height * 0.7 + vh * 0.2; // shorter span to complete sooner
-      const y = Math.min(Math.max(start - rect.top, 0), end);
-      const raw = y / end; // 0..1
-      const SPEED = 1.7; // >1 = faster
-      return Math.min(1, raw * SPEED);
+      // Immediate edge cases
+      if (rect.bottom <= 0) return 1;           // completely passed
+      if (rect.top >= vh) return 0;            // not entered yet
+      // Map from when the section top enters the viewport bottom (vh)
+      // to slightly before the bottom leaves the top, so it finishes earlier
+      const span = vh + rect.height * 0.4;     // finish ~60% into leaving
+      const y = vh - rect.top;                 // distance travelled through the viewport
+      const r = Math.min(1, Math.max(0, y / span));
+      return r;
     }
 
     function update() {

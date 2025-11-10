@@ -1,5 +1,5 @@
 // Basic service worker for offline shell
-const CACHE = 'abir71-v34';
+const CACHE = 'abir71-v35';
 const ASSETS = [
   '/',
   '/index.html',
