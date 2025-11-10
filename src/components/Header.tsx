@@ -21,7 +21,7 @@ export default function Header() {
         </Link>
         <nav className="hidden gap-6 md:flex">
           {nav.map((i) => (
-            <a key={i.href} href={i.href} className="text-zinc-300 hover:text-white">
+            <a key={i.href} href={i.href} className="text-zinc-300 hover:text-white hover:underline underline-offset-4">
               {i.label}
             </a>
           ))}
