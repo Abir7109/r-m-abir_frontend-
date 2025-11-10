@@ -124,6 +124,49 @@
     }
   })();
 
+  // Project modal
+  const modal = qs('#projectModal');
+  if (modal) {
+    const dialog = qs('.proj-dialog', modal);
+    const closeBtn = qs('.proj-close', modal);
+    const backdrop = qs('.proj-backdrop', modal);
+    const mTitle = qs('.proj-title', modal);
+    const mDesc = qs('.proj-desc', modal);
+    const mBullets = qs('.proj-bullets', modal);
+    const mBadges = qs('.proj-badges', modal);
+    const mMedia = qs('.proj-media', modal);
+    const mDemo = qs('.proj-demo', modal);
+    const mRepo = qs('.proj-repo', modal);
+
+    function openFrom(card){
+      const title = card.querySelector('.name')?.textContent || 'Case Study';
+      const desc = card.querySelector('.desc')?.textContent || '';
+      const bullets = card.querySelector('.bullets')?.innerHTML || '';
+      const badges = card.querySelector('.badges')?.innerHTML || '';
+      const live = card.getAttribute('data-live') || card.querySelector('.actions a[href]')?.href || '#';
+      const repo = card.getAttribute('data-repo') || card.querySelector('.actions a[href*="github.com"]')?.href || '#';
+      const bg = getComputedStyle(card.querySelector('.shot .img')).backgroundImage;
+
+      mTitle.textContent = title;
+      mDesc.textContent = desc;
+      mBullets.innerHTML = bullets;
+      mBadges.innerHTML = badges;
+      mDemo.href = live; mRepo.href = repo;
+      mMedia.style.background = bg;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+    }
+    function close(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+
+    qsa('.project-card [data-case]').forEach(btn => btn.addEventListener('click', (e) => {
+      const card = e.currentTarget.closest('.project-card');
+      if (card) openFrom(card);
+    }));
+    closeBtn?.addEventListener('click', close);
+    backdrop?.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) close(); });
+  }
+
   // Case study buttons to open <details>
   qsa('[data-case]').forEach(btn => btn.addEventListener('click', () => {
     const id = 'case-' + btn.dataset.case;

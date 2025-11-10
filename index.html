@@ -238,7 +238,7 @@
         </div>
 
         <div class="grid projects-grid" role="list">
-          <article class="project-card neo" role="listitem" data-tech="web" data-rank="1" data-live="https://abir7109.github.io/mess_manager_frontend/">
+          <article class="project-card neo" role="listitem" data-tech="web" data-rank="1" data-live="https://abir7109.github.io/mess_manager_frontend/" data-repo="https://github.com/Abir7109/mess_manager_frontend">
             <figure class="shot" aria-hidden="true">
               <div class="img" style="--bg:url('/assets/img/hero.jpg')"></div>
               <div class="overlay"></div>
@@ -253,7 +253,8 @@
               <div class="meta"><span>2024</span> · <span>Full‑stack</span></div>
               <footer class="actions">
                 <a class="btn btn-sm ghost" href="https://abir7109.github.io/mess_manager_frontend/" target="_blank" rel="noopener" aria-label="Open demo">Live</a>
-                <button class="btn btn-sm" data-case="mess">Case Study</button>
+                <a class="btn btn-sm ghost" href="https://github.com/Abir7109/mess_manager_frontend" target="_blank" rel="noopener" aria-label="Open repo">Repo</a>
+                <button class="btn btn-sm" data-case>Case Study</button>
               </footer>
             </div>
             <details class="case" id="case-mess">
@@ -262,7 +263,7 @@
             </details>
           </article>
 
-          <article class="project-card neo" role="listitem" data-tech="web" data-rank="2" data-live="https://munaspori-collab.github.io/unique_tshirt_frontend/">
+          <article class="project-card neo" role="listitem" data-tech="web" data-rank="2" data-live="https://munaspori-collab.github.io/unique_tshirt_frontend/" data-repo="https://github.com/munaspori-collab/unique_tshirt_frontend">
             <figure class="shot" aria-hidden="true">
               <div class="img" style="--bg:linear-gradient(135deg,#1A3D64,#1D546C)"></div>
               <div class="overlay"></div>
@@ -277,7 +278,8 @@
               <div class="meta"><span>2025</span> · <span>Web</span></div>
               <footer class="actions">
                 <a class="btn btn-sm ghost" href="https://munaspori-collab.github.io/unique_tshirt_frontend/" target="_blank" rel="noopener" aria-label="Open demo">Live</a>
-                <button class="btn btn-sm" data-case="vault">Case Study</button>
+                <a class="btn btn-sm ghost" href="https://github.com/munaspori-collab/unique_tshirt_frontend" target="_blank" rel="noopener" aria-label="Open repo">Repo</a>
+                <button class="btn btn-sm" data-case>Case Study</button>
               </footer>
             </div>
             <details class="case" id="case-vault">
@@ -286,7 +288,7 @@
             </details>
           </article>
 
-          <article class="project-card neo" role="listitem" data-tech="mobile" data-rank="3" data-live="https://abir7109.github.io/japanese-coaching-frontend/">
+          <article class="project-card neo" role="listitem" data-tech="mobile" data-rank="3" data-live="https://abir7109.github.io/japanese-coaching-frontend/" data-repo="https://github.com/Abir7109/japanese-coaching-frontend">
             <figure class="shot" aria-hidden="true">
               <div class="img" style="--bg:linear-gradient(135deg,#0C2B4E,#1D546C)"></div>
               <div class="overlay"></div>
@@ -301,7 +303,8 @@
               <div class="meta"><span>2023</span> · <span>Mobile</span></div>
               <footer class="actions">
                 <a class="btn btn-sm ghost" href="https://abir7109.github.io/japanese-coaching-frontend/" target="_blank" rel="noopener" aria-label="Open demo">Live</a>
-                <button class="btn btn-sm" data-case="jp">Case Study</button>
+                <a class="btn btn-sm ghost" href="https://github.com/Abir7109/japanese-coaching-frontend" target="_blank" rel="noopener" aria-label="Open repo">Repo</a>
+                <button class="btn btn-sm" data-case>Case Study</button>
               </footer>
             </div>
             <details class="case" id="case-jp">
@@ -311,6 +314,25 @@
           </article>
         </div>
       </section>
+
+      <!-- Project Modal -->
+      <div id="projectModal" class="proj-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="proj-dialog" role="document">
+          <button class="proj-close" aria-label="Close">✕</button>
+          <div class="proj-media"></div>
+          <div class="proj-content">
+            <h3 class="proj-title"></h3>
+            <p class="proj-desc"></p>
+            <ul class="proj-bullets"></ul>
+            <ul class="proj-badges"></ul>
+            <div class="proj-actions">
+              <a class="btn btn-sm ghost proj-demo" target="_blank" rel="noopener">Live</a>
+              <a class="btn btn-sm proj-repo" target="_blank" rel="noopener">Repo</a>
+            </div>
+          </div>
+        </div>
+        <div class="proj-backdrop"></div>
+      </div>
 
       <!-- Blog -->
       <section id="blog" class="section blog" aria-labelledby="blog-title">
