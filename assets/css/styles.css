@@ -168,18 +168,18 @@ input:checked + .slider:before { transform: translateX(22px); }
 @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 .checkpoint.hit .dot, .checkpoint:hover .dot { box-shadow: 0 0 10px rgba(159,211,255,0.45); transform: scale(1.08); }
 .checkpoint .pill { display:inline-block; font-size: 12px; color: var(--c-text); white-space: nowrap; background: rgba(0,0,0,0.25); padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(4px); }
-.checkpoint .card { position: absolute; left: 50%; transform: translate(-50%, -14px) scale(0.96); width: max-content; max-width: 240px; background: rgba(11,37,68,0.92); color: var(--c-text); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.35); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 2; }
+.checkpoint .card { position: absolute; left: 50%; transform: translate(-50%, -36px) scale(0.96); width: max-content; max-width: 240px; background: rgba(11,37,68,0.92); color: var(--c-text); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 10px 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.35); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 2; }
 /* force above-path placement */
-.checkpoint.below .card { transform: translate(-50%, -14px) scale(0.96); }
-.checkpoint .card::after { content:""; position:absolute; left:50%; transform:translateX(-50%); width:10px; height:10px; background: inherit; border-left:1px solid rgba(255,255,255,0.12); border-top:1px solid rgba(255,255,255,0.12); rotate:45deg; top:-5px; }
+.checkpoint.below .card { transform: translate(-50%, -36px) scale(0.96); }
+.checkpoint .card::after { content:""; position:absolute; left:50%; transform:translateX(-50%); width:10px; height:10px; background: inherit; border-left:1px solid rgba(255,255,255,0.12); border-top:1px solid rgba(255,255,255,0.12); rotate:45deg; top:-7px; }
 /* alignment helpers to prevent overflow */
-.checkpoint.align-right .card { left: auto; right: 0; transform: translate(-8px, -14px) scale(0.96); }
-.checkpoint.align-right .card::after { left:auto; right:14px; transform:none; rotate:45deg; }
-.checkpoint.align-left .card { left: 0; transform: translate(8px, -14px) scale(0.96); }
-.checkpoint.align-left .card::after { left:14px; transform:none; rotate:45deg; }
-.checkpoint.hit .card, .checkpoint:hover .card { opacity: 1; transform: translate(-50%, -14px) scale(1); }
-.checkpoint.align-right.hit .card, .checkpoint.align-right:hover .card { transform: translate(-8px, -14px) scale(1); }
-.checkpoint.align-left.hit .card, .checkpoint.align-left:hover .card { transform: translate(8px, -14px) scale(1); }
+.checkpoint.align-right .card { left: auto; right: 0; transform: translate(-8px, -36px) scale(0.96); }
+.checkpoint.align-right .card::after { left:auto; right:14px; transform:none; rotate:45deg; top:-7px; }
+.checkpoint.align-left .card { left: 0; transform: translate(8px, -36px) scale(0.96); }
+.checkpoint.align-left .card::after { left:14px; transform:none; rotate:45deg; top:-7px; }
+.checkpoint.hit .card, .checkpoint:hover .card { opacity: 1; transform: translate(-50%, -36px) scale(1); }
+.checkpoint.align-right.hit .card, .checkpoint.align-right:hover .card { transform: translate(-8px, -36px) scale(1); }
+.checkpoint.align-left.hit .card, .checkpoint.align-left:hover .card { transform: translate(8px, -36px) scale(1); }
 
 /* Projects */
 .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
