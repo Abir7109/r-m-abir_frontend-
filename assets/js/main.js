@@ -751,16 +751,172 @@
     botBody.scrollTop = botBody.scrollHeight;
   }
   
+  // Conversation context tracking
+  let conversationContext = {
+    askedAbout: [],
+    messageCount: 0,
+    lastTopic: null
+  };
+
   function botReply(q) {
-    const s = q.toLowerCase();
-    if (s.includes('mess')) return '🚀 Mess Manager: Full-stack app with billing, analytics, and real-time updates.';
-    if (s.includes('vault')) return '🔒 Cousins Vault: Family knowledge base with role-based access control.';
-    if (s.includes('japanese')) return '🗾 Japanese Coaching: JLPT practice platform with SRS and voice recognition.';
-    if (s.includes('skill')) return '💻 My core skills include React, Node.js, TypeScript, Python, and full-stack development.';
-    if (s.includes('contact')) return '📧 You can reach me via the Contact section or through any social media links!';
-    if (s.includes('experience') || s.includes('year')) return '⏱️ I have 7+ years of professional development experience with 30+ completed projects.';
-    if (s.includes('about') || s.includes('who')) return '👋 I\'m R.M.Abir71, a full-stack developer passionate about building modern web applications.';
-    return '🤖 Ask me about projects, skills, experience, or how to contact me. Type "skills" or "projects" for more info.';
+    const s = q.toLowerCase().trim();
+    conversationContext.messageCount++;
+    
+    // Greetings
+    if (/^(hi|hello|hey|greetings|good\s*(morning|afternoon|evening)|sup|yo)\b/i.test(s)) {
+      conversationContext.lastTopic = 'greeting';
+      const greetings = [
+        '👋 Hello! I\'m your AI assistant. I can tell you about R.M.Abir71\'s projects, skills, experience, or help you get in touch!',
+        '🚀 Hey there! Ready to explore my creator\'s portfolio? Ask about projects, skills, or background!',
+        '🌟 Hi! Welcome! I\'m here to guide you through the portfolio. What would you like to know?'
+      ];
+      return greetings[Math.floor(Math.random() * greetings.length)];
+    }
+    
+    // Gratitude
+    if (/\b(thank|thanks|thx|appreciate|ty)\b/i.test(s)) {
+      return '😊 You\'re welcome! Feel free to ask anything else about projects, skills, or experience!';
+    }
+    
+    // Farewell
+    if (/^(bye|goodbye|see\s*you|cya|later|gotta\s*go)\b/i.test(s)) {
+      return '👋 Goodbye! Feel free to return anytime. Don\'t forget to check out the contact section to stay connected!';
+    }
+    
+    // Projects - Detailed
+    if (s.includes('mess') || s.includes('manager')) {
+      conversationContext.lastTopic = 'mess-manager';
+      conversationContext.askedAbout.push('mess-manager');
+      return '🚀 **Mess Manager** - A comprehensive full-stack application for mess/hostel management with:\n• Automated billing & expense tracking\n• Real-time analytics dashboard\n• Menu planning system\n• Multi-role access (Admin, Manager, Member)\n\nBuilt with React, Node.js, and PostgreSQL. Check out the live demo!';
+    }
+    
+    if (s.includes('vault') || s.includes('cousin')) {
+      conversationContext.lastTopic = 'cousins-vault';
+      conversationContext.askedAbout.push('cousins-vault');
+      return '🔒 **Cousins Vault** - A family-first knowledge base platform featuring:\n• Secure document storage\n• Role-based access control (RBAC)\n• Collaborative editing\n• Version history tracking\n\nPerfect for families to organize and share important information securely!';
+    }
+    
+    if (s.includes('japanese') || s.includes('jlpt') || s.includes('coaching')) {
+      conversationContext.lastTopic = 'japanese-coaching';
+      conversationContext.askedAbout.push('japanese-coaching');
+      return '🗾 **Japanese Coaching Platform** - An interactive JLPT preparation system with:\n• Spaced Repetition System (SRS) for vocabulary\n• AI-powered voice recognition\n• Practice tests for all JLPT levels\n• Progress tracking & analytics\n\nHelping students master Japanese efficiently!';
+    }
+    
+    // Projects - General
+    if (/\b(project|portfolio|work|built|made|created)\b/i.test(s)) {
+      conversationContext.lastTopic = 'projects';
+      return '📁 I\'ve worked on **30+ projects** across different domains:\n\n🎯 Featured Projects:\n• **Mess Manager** - Full-stack hostel management\n• **Cousins Vault** - Family knowledge base\n• **Japanese Coaching** - JLPT learning platform\n\nAsk about any specific project for more details, or scroll down to see them all!';
+    }
+    
+    // Skills - Specific
+    if (s.includes('react') || s.includes('frontend') || s.includes('ui')) {
+      conversationContext.lastTopic = 'frontend-skills';
+      return '⚛️ **Frontend Expertise:**\n• React.js (Hooks, Context, Redux)\n• Next.js for SSR/SSG\n• TypeScript for type safety\n• Responsive design (CSS3, Tailwind, Styled Components)\n• Animations & micro-interactions\n\nI specialize in creating smooth, accessible user experiences!';
+    }
+    
+    if (s.includes('node') || s.includes('backend') || s.includes('api')) {
+      conversationContext.lastTopic = 'backend-skills';
+      return '🔧 **Backend Expertise:**\n• Node.js & Express.js\n• RESTful API design\n• Database: PostgreSQL, MongoDB, MySQL\n• Authentication & authorization\n• Real-time features (WebSockets)\n\nBuilding scalable, secure server-side solutions!';
+    }
+    
+    if (s.includes('python') || s.includes('django')) {
+      conversationContext.lastTopic = 'python-skills';
+      return '🐍 **Python Development:**\n• Python (Advanced level - 95%)\n• Django framework\n• FastAPI for modern APIs\n• Data processing & automation\n• Scripting & DevOps tasks\n\nVersatile problem-solving with Python!';
+    }
+    
+    if (s.includes('database') || s.includes('sql') || s.includes('mongo')) {
+      conversationContext.lastTopic = 'database-skills';
+      return '📦 **Database Skills:**\n• PostgreSQL (relational)\n• MongoDB (NoSQL)\n• MySQL\n• Prisma ORM\n• Query optimization\n• Database design & normalization\n\nEfficiently managing data at scale!';
+    }
+    
+    // Skills - General
+    if (/\b(skill|tech|technology|stack|know|can\s*you)\b/i.test(s)) {
+      conversationContext.lastTopic = 'skills';
+      conversationContext.askedAbout.push('skills');
+      return '💻 **Tech Stack:**\n\n**Frontend:** React, Next.js, TypeScript, HTML/CSS\n**Backend:** Node.js, Python, Django\n**Database:** PostgreSQL, MongoDB, MySQL\n**Tools:** Git, Docker, Firebase\n\n🎯 Proficiency: 90% Frontend | 85% Backend | 80% Database\n\nAsk about specific technologies for more details!';
+    }
+    
+    // Experience & Background
+    if (/\b(experience|year|how\s*long|background|career|journey)\b/i.test(s)) {
+      conversationContext.lastTopic = 'experience';
+      conversationContext.askedAbout.push('experience');
+      return '⏱️ **Professional Journey:**\n\n📈 **7+ Years** of development experience\n🎯 **30+ Projects** successfully delivered\n👥 **10+ Happy Clients**\n📚 **15+ Technologies** mastered\n\n🚦 From 2016 (beginner) to 2025 (professional developer)\n\nCheck out the Journey section for the complete story!';
+    }
+    
+    // Education & Learning
+    if (/\b(education|study|learn|university|degree|course)\b/i.test(s)) {
+      conversationContext.lastTopic = 'education';
+      return '🎓 **Learning Path:**\nSelf-taught developer who started coding in 2016. Continuously learning through:\n• Online courses & bootcamps\n• Open-source contributions\n• Real-world projects\n• Technical documentation\n\nBelieve in practical, hands-on learning!';
+    }
+    
+    // Contact & Hire
+    if (/\b(contact|email|reach|hire|work\s*with|collaborate|freelance)\b/i.test(s)) {
+      conversationContext.lastTopic = 'contact';
+      conversationContext.askedAbout.push('contact');
+      return '📧 **Get In Touch:**\n\n• Use the Contact Form (scroll down)\n• Connect on LinkedIn, GitHub, Twitter\n• Available for freelance & collaboration\n\n💡 Response time: Within 24 hours\n\nLet\'s build something amazing together!';
+    }
+    
+    // Availability
+    if (/\b(available|free|busy|time|schedule)\b/i.test(s)) {
+      return '📅 Currently **available** for freelance projects and collaborations! Feel free to reach out via the contact form.';
+    }
+    
+    // Pricing/Rates
+    if (/\b(price|cost|rate|charge|budget|pay)\b/i.test(s)) {
+      return '💰 Pricing depends on project scope and requirements. Let\'s discuss your needs via the contact form for a custom quote!';
+    }
+    
+    // Location
+    if (/\b(where|location|live|based|from)\b/i.test(s)) {
+      return '🌍 I work remotely and collaborate with clients globally. Open to both remote and on-site opportunities!';
+    }
+    
+    // Technologies - Tools
+    if (/\b(tool|software|ide|editor|use)\b/i.test(s)) {
+      return '🛠️ **Development Tools:**\n• VS Code (primary IDE)\n• Git & GitHub\n• Docker for containerization\n• Postman for API testing\n• Figma for design collaboration\n\nEfficient workflow with modern tooling!';
+    }
+    
+    // Hobbies/Personal
+    if (/\b(hobby|hobbies|interest|free\s*time|fun)\b/i.test(s)) {
+      return '🎮 **Beyond Code:**\nWhen not coding, I enjoy exploring new technologies, contributing to open source, and staying updated with web development trends!';
+    }
+    
+    // Help/Capabilities
+    if (/\b(help|can\s*you|able|do\s*you|what\s*can)\b/i.test(s)) {
+      return '🤖 **I can help you with:**\n• Learning about projects & portfolio\n• Understanding technical skills\n• Exploring experience & background\n• Getting contact information\n• Navigating the portfolio\n\nWhat would you like to know?';
+    }
+    
+    // Comparison with others
+    if (/\b(why\s*you|choose\s*you|different|special|unique|better)\b/i.test(s)) {
+      return '✨ **What Sets Me Apart:**\n• Full-stack versatility\n• User-centric design thinking\n• Clean, maintainable code\n• 7+ years real-world experience\n• Passion for modern web tech\n\nQuality and user experience are my priorities!';
+    }
+    
+    // Conversational context follow-up
+    if (conversationContext.lastTopic && /\b(more|tell|detail|else|other)\b/i.test(s)) {
+      if (conversationContext.lastTopic === 'projects') {
+        return '🔍 Ask about specific projects like "Mess Manager", "Cousins Vault", or "Japanese Coaching" for detailed info!';
+      } else if (conversationContext.lastTopic === 'skills') {
+        return '🔧 Want to know about specific tech? Ask about React, Node.js, Python, databases, or any technology!';
+      }
+    }
+    
+    // Confused/Unclear input
+    if (s.length < 3 || /^[?.!,\s]+$/.test(s)) {
+      return '🤔 I didn\'t quite catch that. Try asking about projects, skills, experience, or contact info!';
+    }
+    
+    // Default - Smart suggestions based on what hasn't been asked
+    const notAskedYet = [];
+    if (!conversationContext.askedAbout.includes('projects')) notAskedYet.push('projects');
+    if (!conversationContext.askedAbout.includes('skills')) notAskedYet.push('skills');
+    if (!conversationContext.askedAbout.includes('experience')) notAskedYet.push('experience');
+    if (!conversationContext.askedAbout.includes('contact')) notAskedYet.push('contact');
+    
+    if (notAskedYet.length > 0) {
+      return `🤖 I\'m not sure about that, but I can tell you about:\n• ${notAskedYet.join('\n• ')}\n\nWhat interests you?`;
+    }
+    
+    return '🤖 Interesting question! I specialize in portfolio info. Try asking about projects, skills, tech stack, experience, or how to get in touch!';
   }
   
   if (botToggle && botPanel && botClose && botForm && botInput && botBody) {
