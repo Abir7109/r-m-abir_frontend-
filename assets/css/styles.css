@@ -64,7 +64,7 @@ input:checked + .slider:before { transform: translateX(22px); }
 .subtitle { font-size: clamp(1rem, 2.6vw, 1.5rem); color: var(--c-muted); min-height: 1.5em; }
 .subtitle #typewriter { 
   color: transparent;
-  background: linear-gradient(90deg, #9fd3ff, #00e0ff, #9fd3ff);
+  background: linear-gradient(90deg, #7fe9ff, #00ffd5, #7fe9ff);
   background-size: 200% 100%;
   -webkit-background-clip: text; background-clip: text;
   text-shadow: 0 2px 10px rgba(0,0,0,0.55), 0 0 2px rgba(0,0,0,0.85);
