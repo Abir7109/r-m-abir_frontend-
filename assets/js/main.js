@@ -59,7 +59,7 @@
   }
   tick();
 
-  // Project filters
+  // Project filters + reveal
   const chips = qsa('.chip');
   const cards = qsa('.project-card');
   chips.forEach(ch => ch.addEventListener('click', () => {
@@ -69,8 +69,28 @@
     cards.forEach(card => {
       const show = f === 'all' || card.dataset.tech === f;
       card.style.display = show ? '' : 'none';
+      card.setAttribute('aria-hidden', show ? 'false' : 'true');
     });
   }));
+  // reveal on scroll
+  const projIo = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); });
+  }, { threshold: 0.2 });
+  qsa('.project-card.neo').forEach(c => projIo.observe(c));
+
+  // Tilt on hover
+  qsa('.project-card.neo').forEach(card => {
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      const rx = (py) * 6, ry = (-px) * 6;
+      card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+    });
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+    });
+  });
 
   // Case study buttons to open <details>
   qsa('[data-case]').forEach(btn => btn.addEventListener('click', () => {

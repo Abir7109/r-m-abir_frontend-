@@ -237,52 +237,73 @@
           <button class="chip" data-filter="data">Data</button>
         </div>
 
-        <div class="grid" role="list">
-          <article class="project-card" role="listitem" data-tech="web">
-            <header>
-              <h3>Mess Manager</h3>
-              <ul class="badges"><li>React</li><li>Node</li><li>Postgres</li></ul>
-            </header>
-            <p>End‑to‑end mess management with billing, menus, and analytics.</p>
-            <footer>
-              <a class="btn btn-sm" href="#" aria-label="Open demo">Live</a>
-              <button class="btn btn-sm" data-case="mess">Case Study</button>
-            </footer>
+        <div class="grid projects-grid" role="list">
+          <article class="project-card neo" role="listitem" data-tech="web" data-rank="1">
+            <figure class="shot" aria-hidden="true">
+              <div class="img" style="--bg:url('/assets/img/hero.jpg')"></div>
+              <div class="overlay"></div>
+            </figure>
+            <div class="body">
+              <header class="head">
+                <h3 class="name">Mess Manager</h3>
+                <ul class="badges"><li>React</li><li>Node</li><li>Postgres</li></ul>
+              </header>
+              <p class="desc">End‑to‑end mess management with billing, menus, and analytics.</p>
+              <div class="meta"><span>2024</span> · <span>Full‑stack</span></div>
+              <footer class="actions">
+                <a class="btn btn-sm ghost" href="#" aria-label="Open demo">Live</a>
+                <button class="btn btn-sm" data-case="mess">Case Study</button>
+              </footer>
+            </div>
             <details class="case" id="case-mess">
               <summary>Read more</summary>
-              <p>Challenges: multi‑role auth, realtime updates. Solutions: webhooks, CQRS.</p>
+              <p>Multi‑role auth, realtime updates, billing engine. Built with React/Node/Postgres.</p>
             </details>
           </article>
 
-          <article class="project-card" role="listitem" data-tech="web">
-            <header>
-              <h3>Cousins Vault</h3>
-              <ul class="badges"><li>Next.js</li><li>Prisma</li><li>Stripe</li></ul>
-            </header>
-            <p>Shared family knowledge and media vault with auth and payments.</p>
-            <footer>
-              <a class="btn btn-sm" href="#" aria-label="Open demo">Live</a>
-              <button class="btn btn-sm" data-case="vault">Case Study</button>
-            </footer>
+          <article class="project-card neo" role="listitem" data-tech="web" data-rank="2">
+            <figure class="shot" aria-hidden="true">
+              <div class="img" style="--bg:linear-gradient(135deg,#1A3D64,#1D546C)"></div>
+              <div class="overlay"></div>
+            </figure>
+            <div class="body">
+              <header class="head">
+                <h3 class="name">Cousins Vault</h3>
+                <ul class="badges"><li>Next.js</li><li>Prisma</li><li>Stripe</li></ul>
+              </header>
+              <p class="desc">Family‑first knowledge vault with RBAC, encrypted media, and payments.</p>
+              <div class="meta"><span>2024</span> · <span>Web</span></div>
+              <footer class="actions">
+                <a class="btn btn-sm ghost" href="#" aria-label="Open demo">Live</a>
+                <button class="btn btn-sm" data-case="vault">Case Study</button>
+              </footer>
+            </div>
             <details class="case" id="case-vault">
               <summary>Read more</summary>
-              <p>Challenges: privacy, access controls. Solutions: RBAC, encrypted blobs.</p>
+              <p>Privacy by design, role‑based access, shareable links, object storage.</p>
             </details>
           </article>
 
-          <article class="project-card" role="listitem" data-tech="mobile">
-            <header>
-              <h3>Japanese Coaching</h3>
-              <ul class="badges"><li>React Native</li><li>Expo</li></ul>
-            </header>
-            <p>Guided JLPT study with spaced repetition and speech practice.</p>
-            <footer>
-              <a class="btn btn-sm" href="#" aria-label="Open demo">Live</a>
-              <button class="btn btn-sm" data-case="jp">Case Study</button>
-            </footer>
+          <article class="project-card neo" role="listitem" data-tech="mobile" data-rank="3">
+            <figure class="shot" aria-hidden="true">
+              <div class="img" style="--bg:linear-gradient(135deg,#0C2B4E,#1D546C)"></div>
+              <div class="overlay"></div>
+            </figure>
+            <div class="body">
+              <header class="head">
+                <h3 class="name">Japanese Coaching</h3>
+                <ul class="badges"><li>React Native</li><li>Expo</li></ul>
+              </header>
+              <p class="desc">JLPT study with spaced repetition, voice practice, and offline mode.</p>
+              <div class="meta"><span>2023</span> · <span>Mobile</span></div>
+              <footer class="actions">
+                <a class="btn btn-sm ghost" href="#" aria-label="Open demo">Live</a>
+                <button class="btn btn-sm" data-case="jp">Case Study</button>
+              </footer>
+            </div>
             <details class="case" id="case-jp">
               <summary>Read more</summary>
-              <p>Challenges: audio latency. Solutions: WebAudio, local caching.</p>
+              <p>Audio capture, local caching, native feel with Expo EAS.</p>
             </details>
           </article>
         </div>
