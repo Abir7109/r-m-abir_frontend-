@@ -62,6 +62,7 @@ input:checked + .slider:before { transform: translateX(22px); }
   filter: saturate(108%); }
 .hero-content { position: relative; z-index: 1; padding: 20px 10px; max-width: 640px; animation: fadeIn 1s ease both; }
 .subtitle { font-size: clamp(1rem, 2.6vw, 1.5rem); color: var(--c-muted); min-height: 1.5em; }
+.subtitle #typewriter { color: #ffffff; text-shadow: 0 2px 10px rgba(0,0,0,0.55), 0 0 2px rgba(0,0,0,0.85); }
 
 @media (max-width: 600px) {
   .hero { padding-inline: 16px; }
