@@ -79,6 +79,32 @@
     qs('#' + id)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }));
 
+  // Skills tilt interaction
+  const skillTiles = qsa('.skills-grid .tile');
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (skillTiles.length) {
+    skillTiles.forEach(tile => {
+      if (reduceMotion) {
+        tile.addEventListener('mouseenter', () => tile.classList.add('hover'));
+        tile.addEventListener('mouseleave', () => tile.classList.remove('hover'));
+        return;
+      }
+      tile.addEventListener('pointermove', (e) => {
+        const r = tile.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        const rx = (py - 0.5) * 10; // tilt X
+        const ry = (0.5 - px) * 10; // tilt Y
+        tile.style.setProperty('--rx', rx.toFixed(2) + 'deg');
+        tile.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+      });
+      tile.addEventListener('pointerleave', () => {
+        tile.style.removeProperty('--rx');
+        tile.style.removeProperty('--ry');
+      });
+    });
+  }
+
   // Blog posts (sample data)
   const posts = [
     { title: 'Designing with Motion', tags: ['design'], date: '2025-10-01', excerpt: 'Principles for tasteful animation.' },
