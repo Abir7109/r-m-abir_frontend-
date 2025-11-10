@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin · R.M.Abir71</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      :root { --bg:#0c2b4e; --card:#0b2544; --text:#f4f4f4; }
+      body { margin:0; font-family:Inter,system-ui; background:var(--bg); color:var(--text); }
+      .wrap { max-width:900px; margin:20px auto; padding: 0 12px; }
+      header { display:flex; justify-content:space-between; align-items:center; }
+      .card { background:var(--card); padding:16px; border-radius:12px; margin-top:12px; border:1px solid rgba(255,255,255,0.1); }
+      a { color: #9fd3ff; }
+      .grid { display:grid; grid-template-columns: repeat(3,1fr); gap:12px; }
+      @media (max-width: 800px){ .grid { grid-template-columns: 1fr; } }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Admin Dashboard</h1>
+        <a href="/">← Back</a>
+      </header>
+      <div class="grid">
+        <div class="card"><h3>Visits</h3><div id="visits">0</div></div>
+        <div class="card"><h3>Clicks</h3><div id="clicks">0</div></div>
+        <div class="card"><h3>Last Visit</h3><div id="last">—</div></div>
+      </div>
+      <div class="card">
+        <canvas id="chart" height="120"></canvas>
+      </div>
+    </div>
+    <script>
+      const a = JSON.parse(localStorage.getItem('analytics')||'{}');
+      document.getElementById('visits').textContent = a.visits||0;
+      document.getElementById('clicks').textContent = a.clicks||0;
+      document.getElementById('last').textContent = a.lastVisit ? new Date(a.lastVisit).toLocaleString() : '—';
+      const ctx = document.getElementById('chart');
+      const hist = JSON.parse(localStorage.getItem('analytics_history')||'[]');
+      hist.push({ t: Date.now(), v: a.visits||0, c: a.clicks||0 });
+      if(hist.length>30) hist.shift();
+      localStorage.setItem('analytics_history', JSON.stringify(hist));
+      new Chart(ctx, { type:'line', data:{ labels: hist.map(x=>new Date(x.t).toLocaleTimeString()), datasets:[ {label:'Visits', data:hist.map(x=>x.v), borderColor:'#9fd3ff'}, {label:'Clicks', data:hist.map(x=>x.c), borderColor:'#1d546c'} ] }, options:{responsive:true, scales:{ y:{ beginAtZero:true } } }});
+    </script>
+  </body>
+</html>

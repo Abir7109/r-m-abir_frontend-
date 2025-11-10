@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>R.M.Abir71 — Portfolio</title>
+    <meta name="description" content="R.M.Abir71 – Visionary Developer · Creative Architect · Digital Connector" />
+    <meta name="theme-color" content="#0C2B4E" />
+
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/assets/icons/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <script defer src="/assets/js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header id="top" class="site-header" role="banner" aria-label="Primary">
+      <nav class="nav" aria-label="Main Navigation">
+        <a class="brand" href="#top" aria-label="R.M.Abir71 home">
+          <img src="/assets/icons/logo.svg" alt="Logo" width="28" height="28" />
+          <span>R.M.Abir71</span>
+        </a>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <ul class="nav-links" data-i18n-scope="nav">
+          <li><a href="#home" data-i18n="home">Home</a></li>
+          <li><a href="#about" data-i18n="about">About</a></li>
+          <li><a href="#projects" data-i18n="projects">Projects</a></li>
+          <li><a href="#resume" data-i18n="resume">Resume</a></li>
+          <li><a href="#blog" data-i18n="blog">Blog</a></li>
+          <li><a href="#contact" data-i18n="contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <label class="switch" aria-label="Toggle dark mode">
+            <input type="checkbox" id="themeToggle" />
+            <span class="slider"></span>
+          </label>
+          <select id="langSelect" aria-label="Language selector">
+            <option value="en">EN</option>
+            <option value="ja">日本語</option>
+          </select>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- Hero -->
+      <section id="home" class="hero" role="region" aria-label="Hero">
+        <div class="hero-bg" role="img" aria-label="Portrait background with gradient overlay"></div>
+        <div class="hero-content">
+          <h1 class="title"><span class="brand-accent">R.M.Abir71</span></h1>
+          <p class="subtitle">
+            <span id="typewriter" aria-live="polite">Visionary Developer</span>
+          </p>
+          <a class="btn cta" href="#projects" data-i18n="explore">Explore My Work</a>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="section about" aria-labelledby="about-title">
+        <h2 id="about-title" data-i18n="about">About</h2>
+        <div class="about-grid">
+          <article class="card profile" aria-label="Profile">
+            <div class="avatar" role="img" aria-label="Profile photo placeholder"></div>
+            <div class="profile-body">
+              <h3>R.M.Abir (AM)</h3>
+              <p>
+                Full‑stack developer blending system design, UI motion, and human‑centered
+                product thinking. I craft immersive, performant, and accessible experiences.
+              </p>
+              <div class="actions">
+                <a class="btn" href="/assets/resume.pdf" download>Download Resume</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card skills" aria-label="Skills">
+            <h3>Skills</h3>
+            <ul class="skills-grid" role="list">
+              <li class="tile">Full‑Stack (TS, Node, Python, Go)</li>
+              <li class="tile">Frontend (React, Animations)</li>
+              <li class="tile">UI/UX & Prototyping</li>
+              <li class="tile">DevOps (CI/CD, Docker)</li>
+              <li class="tile">Databases (Postgres, Prisma)</li>
+              <li class="tile">PWA & Performance</li>
+            </ul>
+          </article>
+
+          <article class="card timeline" aria-label="Timeline">
+            <h3>Journey</h3>
+            <ol class="timeline-list">
+              <li><time>2025</time> Freelance/Consulting</li>
+              <li><time>2024</time> Lead Dev — Product Launches</li>
+              <li><time>2023</time> Certifications & OSS</li>
+              <li><time>2022</time> CS Degree & Internships</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="section projects" aria-labelledby="projects-title">
+        <h2 id="projects-title" data-i18n="projects">Projects</h2>
+        <div class="filters" role="toolbar" aria-label="Project filters">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="web">Web</button>
+          <button class="chip" data-filter="mobile">Mobile</button>
+          <button class="chip" data-filter="data">Data</button>
+        </div>
+
+        <div class="grid" role="list">
+          <article class="project-card" role="listitem" data-tech="web">
+            <header>
+              <h3>Mess Manager</h3>
+              <ul class="badges"><li>React</li><li>Node</li><li>Postgres</li></ul>
+            </header>
+            <p>End‑to‑end mess management with billing, menus, and analytics.</p>
+            <footer>
+              <a class="btn btn-sm" href="#" aria-label="Open demo">Live</a>
+              <button class="btn btn-sm" data-case="mess">Case Study</button>
+            </footer>
+            <details class="case" id="case-mess">
+              <summary>Read more</summary>
+              <p>Challenges: multi‑role auth, realtime updates. Solutions: webhooks, CQRS.</p>
+            </details>
+          </article>
+
+          <article class="project-card" role="listitem" data-tech="web">
+            <header>
+              <h3>Cousins Vault</h3>
+              <ul class="badges"><li>Next.js</li><li>Prisma</li><li>Stripe</li></ul>
+            </header>
+            <p>Shared family knowledge and media vault with auth and payments.</p>
+            <footer>
+              <a class="btn btn-sm" href="#" aria-label="Open demo">Live</a>
+              <button class="btn btn-sm" data-case="vault">Case Study</button>
+            </footer>
+            <details class="case" id="case-vault">
+              <summary>Read more</summary>
+              <p>Challenges: privacy, access controls. Solutions: RBAC, encrypted blobs.</p>
+            </details>
+          </article>
+
+          <article class="project-card" role="listitem" data-tech="mobile">
+            <header>
+              <h3>Japanese Coaching</h3>
+              <ul class="badges"><li>React Native</li><li>Expo</li></ul>
+            </header>
+            <p>Guided JLPT study with spaced repetition and speech practice.</p>
+            <footer>
+              <a class="btn btn-sm" href="#" aria-label="Open demo">Live</a>
+              <button class="btn btn-sm" data-case="jp">Case Study</button>
+            </footer>
+            <details class="case" id="case-jp">
+              <summary>Read more</summary>
+              <p>Challenges: audio latency. Solutions: WebAudio, local caching.</p>
+            </details>
+          </article>
+        </div>
+      </section>
+
+      <!-- Blog -->
+      <section id="blog" class="section blog" aria-labelledby="blog-title">
+        <h2 id="blog-title" data-i18n="blog">Blog</h2>
+        <div class="blog-controls">
+          <input id="blogSearch" type="search" placeholder="Search posts..." aria-label="Search posts" />
+          <div class="tags" role="group" aria-label="Tags">
+            <button class="tag active" data-tag="all">All</button>
+            <button class="tag" data-tag="design">Design</button>
+            <button class="tag" data-tag="devops">DevOps</button>
+            <button class="tag" data-tag="culture">Culture</button>
+          </div>
+        </div>
+        <ul id="blogList" class="post-list" role="list"></ul>
+      </section>
+
+      <!-- Resume -->
+      <section id="resume" class="section resume" aria-labelledby="resume-title">
+        <h2 id="resume-title" data-i18n="resume">Resume</h2>
+        <div class="resume-viewer">
+          <iframe title="Resume" src="/assets/resume.pdf" loading="lazy"></iframe>
+          <div class="resume-actions">
+            <a class="btn" href="/assets/resume.pdf" download>Download</a>
+            <button class="btn" onclick="window.print()">Print</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="section contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" data-i18n="contact">Contact</h2>
+        <form id="contactForm" class="contact-form" novalidate>
+          <div class="row">
+            <label for="name">Name</label>
+            <input id="name" name="name" required />
+          </div>
+          <div class="row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div class="row">
+            <label for="purpose">Purpose</label>
+            <select id="purpose" name="purpose">
+              <option>General</option>
+              <option>Collaboration</option>
+              <option>Hire</option>
+            </select>
+          </div>
+          <div class="row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button class="btn" type="submit">Send</button>
+        </form>
+        <div class="socials" aria-label="Social links">
+          <a href="https://github.com/" aria-label="GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/" aria-label="LinkedIn">LinkedIn</a>
+          <a href="https://instagram.com/" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="Hacker profile">Hacker</a>
+        </div>
+        <div class="map">
+          <iframe title="Dhaka" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Dhaka&output=embed"></iframe>
+        </div>
+      </section>
+    </main>
+
+    <!-- Cyberpunk Assistant -->
+    <button id="botToggle" class="bot-toggle" aria-haspopup="dialog" aria-controls="botPanel" aria-expanded="false">AI</button>
+    <div id="botPanel" class="bot-panel" role="dialog" aria-modal="false" aria-label="Assistant">
+      <div class="bot-header">
+        <strong>Assistant</strong>
+        <button class="close" aria-label="Close">✕</button>
+      </div>
+      <div class="bot-body" id="botBody" aria-live="polite"></div>
+      <form id="botForm" class="bot-form">
+        <input id="botInput" placeholder="Ask about projects…" aria-label="Assistant input" />
+        <button type="submit" class="btn btn-sm">Send</button>
+      </form>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span id="year"></span> R.M.Abir71</span>
+        <button id="contrastToggle" class="link">Contrast</button>
+        <a class="link" href="/admin.html" rel="nofollow">Admin</a>
+      </div>
+    </footer>
+  </body>
+</html>

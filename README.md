@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# R.M.Abir71 – Professional Portfolio
 
-## Getting Started
+A sleek, immersive portfolio highlighting full‑stack expertise with a modern cyberpunk‑blue aesthetic.
 
-First, run the development server:
+Color palette:
+- Header: #0C2B4E
+- Accents: #1A3D64
+- Buttons: #1D546C
+- Text/BG: #F4F4F4
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Features
+- Hero with typewriter subtitle and gradient over portrait
+- Sticky nav with dark mode and EN/JA toggle
+- About with profile, skills grid, and timeline
+- Projects with filters, badges, and expandable case studies
+- Blog with client‑side search and tag filters
+- Resume viewer with download/print
+- Contact form, social links, Dhaka map embed
+- Cyberpunk chatbot assistant
+- PWA offline support
+- Accessibility: skip link, keyboard focus, contrast toggle
+- Local analytics + simple admin dashboard
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Quick start
+- Place your portrait at `assets/img/hero.jpg` (large, high‑quality)
+- Replace `assets/resume.pdf` with your resume
+- Edit social links in `index.html`
+- Open `index.html` in a browser; add to home screen for PWA
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Notes
+- Icons for PWA are placeholders; add PNGs at `assets/icons/icon-192.png` and `assets/icons/icon-512.png`.
+- Chatbot is a lightweight helper; hook to a real backend if desired.
