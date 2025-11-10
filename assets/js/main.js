@@ -362,15 +362,29 @@
       excerpt: 'Micro‑interactions guide attention, reduce cognitive load, and create a premium feel—without distracting users.',
       img: '/assets/img/blog/design.svg',
       content: `
-        <p>Motion is a language. When used with restraint, it <strong>communicates hierarchy</strong>, 
-        <strong>reinforces causality</strong>, and gently <strong>guides attention</strong>.</p>
-        <h4>Principles</h4>
+        <p>Motion is a language. Used thoughtfully, it <strong>communicates hierarchy</strong>, 
+        <strong>reinforces causality</strong>, and <strong>guides attention</strong> without shouting.</p>
+        <h4>When to animate</h4>
         <ul>
-          <li>Prefer <em>0.18–0.28s</em> durations and ease-out curves.</li>
-          <li>Animate <em>position, opacity, scale</em>—avoid layout thrash.</li>
-          <li>Respect <code>prefers-reduced-motion</code> with graceful fallbacks.</li>
+          <li>State changes: toggles, success/error, loading transitions.</li>
+          <li>Spatial movement: navigations, drawers, modals.</li>
+          <li>Feedback: presses, drags, hover hints.</li>
         </ul>
-        <p>Great motion is invisible: it <em>feels</em> right, then gets out of the way.</p>
+        <h4>What to animate</h4>
+        <ul>
+          <li>Opacity + transform (translate/scale). Avoid layout (height/width) when possible.</li>
+          <li>Use <em>0.18–0.28s</em> ease-out for entrances; <em>0.14–0.2s</em> ease-in for exits.</li>
+          <li>Chain small delays (30–60ms) for tasteful staging.</li>
+        </ul>
+        <h4>Accessibility</h4>
+        <p>Respect <code>prefers-reduced-motion</code>: provide instant transitions, keep core info visible, and 
+        never hide critical state behind motion.</p>
+        <h4>Checklist</h4>
+        <ul>
+          <li>Every motion answers: what changed, where did it come from, where did it go?</li>
+          <li>No animation exceeds 300ms; nothing blocks input.</li>
+          <li>Stutters? Drop shadows/blur before dropping frames.</li>
+        </ul>
       `
     },
     { 
@@ -381,13 +395,32 @@
       excerpt: 'Parallelize tests across Node versions and OSes, cache dependencies smartly, and keep pipelines under 5 minutes.',
       img: '/assets/img/blog/devops.svg',
       content: `
-        <p>Matrix builds run jobs in parallel across environments. Combine them with 
-        <strong>setup-node cache</strong> and <strong>artifact reuse</strong> for serious speedups.</p>
-        <pre><code>strategy:
-  matrix:
-    node: [18, 20]
-    os: [ubuntu-latest, windows-latest]</code></pre>
-        <p>Keep logs readable, fail fast, and surface flaky tests early.</p>
+        <p>Matrix builds let you test many environments in parallel. Combine with smart caching and 
+        concurrency controls to keep pipelines fast and predictable.</p>
+        <pre><code>name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18, 20]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test -- --ci --reporter=junit
+</code></pre>
+        <ul>
+          <li>Use <code>actions/setup-node</code> built-in cache.</li>
+          <li>Mark long-running jobs with <code>timeout-minutes</code>.</li>
+          <li>Add <code>concurrency</code> to cancel superseded PR runs.</li>
+        </ul>
       `
     },
     { 
@@ -398,13 +431,23 @@
       excerpt: 'Avoid pure black, lean on semantic tokens, and validate contrast for real environments and OLED screens.',
       img: '/assets/img/blog/design.svg',
       content: `
-        <p>True black (#000) can cause eye strain and haloing. Prefer deep chroma backgrounds 
-        and <strong>semantic color tokens</strong> to theme consistently.</p>
+        <p>Dark themes are not just inverted light themes. Prioritize comfort and clarity.</p>
+        <h4>Color & contrast</h4>
         <ul>
-          <li>Check contrast for text and icons, not just body copy.</li>
-          <li>Use elevation and subtle borders for separation.</li>
-          <li>Test on OLED at low brightness.</li>
+          <li>Avoid pure black; use deep hues (e.g. <code>#0b2544</code>) to reduce haloing.</li>
+          <li>Target 4.5:1 for body text; watch icon and disabled states too.</li>
+          <li>Use subtle borders (<code>rgba(255,255,255,0.08)</code>) and elevation for separation.</li>
         </ul>
+        <h4>Tokens</h4>
+        <pre><code>:root[data-theme='dark'] {
+  --bg: #0b2544;
+  --bg-soft: #1a3d64;
+  --text: #f4f4f4;
+  --muted: #9fb3c8;
+  --accent: #1d546c;
+}
+</code></pre>
+        <p>Keep semantic tokens stable and theme via values, not ad-hoc colors.</p>
       `
     },
     { 
@@ -415,10 +458,17 @@
       excerpt: 'Layout mirroring, pluralization, and font fallback can break faster than you think—plan for them upfront.',
       img: '/assets/img/blog/culture.svg',
       content: `
-        <p>Localization is more than translation. Arabic/RTL needs <strong>mirrored UI</strong>; 
-        languages like Russian change <strong>plural forms</strong>.</p>
-        <p>Emoji render differently across platforms—avoid using them as critical UI.</p>
-        <p>Bake i18n into design tokens and component APIs early.</p>
+        <p>Localization shapes product perception. Beyond strings, mind layout, numerals, and symbols.</p>
+        <h4>RTL</h4>
+        <pre><code>/* Mirror layout when dir=rtl */
+[dir='rtl'] .icon-chevron { transform: scaleX(-1); }
+[dir='rtl'] .ml-auto { margin-left: 0; margin-right: auto; }
+</code></pre>
+        <h4>Plural rules</h4>
+        <pre><code>const pr = new Intl.PluralRules('ar');
+const form = pr.select(count); // zero, one, two, few, many, other
+</code></pre>
+        <p>Don’t rely on emoji for critical UI—they render differently across platforms.</p>
       `
     }
   ];
