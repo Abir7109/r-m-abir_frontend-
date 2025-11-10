@@ -80,15 +80,18 @@
 
   // Tilt on hover
   qsa('.project-card.neo').forEach(card => {
+    const imgEl = card.querySelector('.shot .img');
     card.addEventListener('pointermove', (e) => {
       const r = card.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width - 0.5;
       const py = (e.clientY - r.top) / r.height - 0.5;
       const rx = (py) * 6, ry = (-px) * 6;
       card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+      if (imgEl) imgEl.style.backgroundPosition = `calc(50% + ${px*4}%) calc(50% + ${py*4}%)`;
     });
     card.addEventListener('pointerleave', () => {
       card.style.transform = '';
+      if (imgEl) imgEl.style.backgroundPosition = '';
     });
   });
 
