@@ -58,7 +58,7 @@ input:checked + .slider:before { transform: translateX(22px); }
 /* Hero */
 .hero { position: relative; min-height: 100vh; min-height: 100svh; display: grid; align-items: center; justify-items: start; text-align: left; overflow: hidden; padding: 0; width: 100vw; }
 .hero-bg { position: absolute; inset: 0; background: url('/assets/img/abir4.jpg') center 30% / cover no-repeat; filter: saturate(108%); }
-.hero-content { position: relative; z-index: 1; padding: 24px; max-width: 640px; margin-left: clamp(16px, 6vw, 100px); animation: fadeIn 1s ease both; }
+.hero-content { position: relative; z-index: 1; padding: 24px; max-width: 640px; margin-left: clamp(16px, 6vw, 100px); margin-bottom: clamp(12px, 8vh, 80px); align-self: end; justify-self: start; animation: fadeIn 1s ease both; }
 .subtitle { font-size: clamp(1rem, 2.6vw, 1.5rem); color: var(--c-muted); min-height: 1.5em; }
 .subtitle #typewriter {
   color: #f4f4f4;
@@ -71,7 +71,7 @@ input:checked + .slider:before { transform: translateX(22px); }
 
 @media (max-width: 600px) {
   .hero { padding: 0; }
-  .hero-content { padding: 20px; margin-left: clamp(12px, 5vw, 40px); }
+  .hero-content { padding: 20px; margin-left: clamp(12px, 5vw, 40px); margin-bottom: clamp(14px, 12vh, 100px); }
   .hero-bg { background: url('/assets/img/abir4.jpg') center 42% / cover no-repeat; }
 }
 
