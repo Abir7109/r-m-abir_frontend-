@@ -361,25 +361,66 @@
   const blogList = qs('#blogList');
   const blogSearch = qs('#blogSearch');
   const tagBtns = qsa('.tag');
+  const viewGrid = qs('#blogViewGrid');
+  const viewList = qs('#blogViewList');
+  const blogSort = qs('#blogSort');
   let activeTag = 'all';
+  const state = {
+    view: localStorage.getItem('blog:view') || 'grid',
+    sort: localStorage.getItem('blog:sort') || 'new'
+  };
+  function fmtDate(s){ try{ return new Date(s).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}catch{ return s; } }
+  function estimateMin(p){ const words = (p.title + ' ' + p.excerpt).split(/\s+/).length; return Math.max(1, Math.round(words/200)); }
+  function hueFrom(str){ let h=0; for (let i=0;i<str.length;i++) h=(h+str.charCodeAt(i)*7)%360; return h; }
+  function escReg(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+  function hi(text,q){ if(!q) return text; const re=new RegExp(escReg(q), 'ig'); return text.replace(re, m=>`<mark class="hl">${m}</mark>`); }
+  function sortItems(arr){
+    if (state.sort==='az') return [...arr].sort((a,b)=>a.title.localeCompare(b.title));
+    if (state.sort==='old') return [...arr].sort((a,b)=>new Date(a.date)-new Date(b.date));
+    return [...arr].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  }
+  function applyView(){ blogList.classList.toggle('list', state.view==='list'); viewGrid.classList.toggle('active', state.view==='grid'); viewList.classList.toggle('active', state.view==='list'); }
   function renderPosts() {
     blogList.innerHTML = '';
-    const q = blogSearch.value.trim().toLowerCase();
-    posts.filter(p => (activeTag === 'all' || p.tags.includes(activeTag)) &&
-                      (p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q)))
-         .forEach(p => {
-           const li = document.createElement('li');
-           li.innerHTML = `<strong>${p.title}</strong> · <em>${p.date}</em><br/>${p.excerpt}`;
-           blogList.appendChild(li);
-         });
+    const q = blogSearch?.value?.trim().toLowerCase() || '';
+    const filtered = posts.filter(p => (activeTag === 'all' || p.tags.includes(activeTag)) &&
+                      (p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q)));
+    const items = sortItems(filtered);
+    items.forEach(p => {
+      const li = document.createElement('li');
+      li.className = 'post-card';
+      li.setAttribute('role','listitem');
+      const h = hueFrom(p.title);
+      li.innerHTML = `
+        <div class="thumb" style="--h:${h}"></div>
+        <div class="pc-body">
+          <div class="pc-head">
+            <h3 class="pc-title">${hi(p.title, q)}</h3>
+            <span class="pc-date">${fmtDate(p.date)}</span>
+          </div>
+          <p class="pc-excerpt">${hi(p.excerpt, q)}</p>
+          <div class="pc-meta">
+            <span class="pill">${estimateMin(p)} min</span>
+            ${p.tags.map(t=>`<span class="pill">#${t}</span>`).join('')}
+          </div>
+        </div>`;
+      blogList.appendChild(li);
+    });
+    // reveal animation
+    const io = new IntersectionObserver(es => es.forEach(e=> e.isIntersecting && e.target.classList.add('reveal')), { threshold: .15 });
+    qsa('.post-card', blogList).forEach(x=>io.observe(x));
   }
-  blogSearch.addEventListener('input', renderPosts);
+  blogSearch?.addEventListener('input', renderPosts);
   tagBtns.forEach(b => b.addEventListener('click', () => {
     tagBtns.forEach(x => x.classList.remove('active'));
     b.classList.add('active');
     activeTag = b.dataset.tag;
     renderPosts();
   }));
+  viewGrid?.addEventListener('click', ()=>{ state.view='grid'; localStorage.setItem('blog:view','grid'); applyView(); });
+  viewList?.addEventListener('click', ()=>{ state.view='list'; localStorage.setItem('blog:view','list'); applyView(); });
+  blogSort?.addEventListener('change', ()=>{ state.sort=blogSort.value; localStorage.setItem('blog:sort', state.sort); renderPosts(); });
+  applyView();
   renderPosts();
 
   // About: counters and tabs + avatar parallax

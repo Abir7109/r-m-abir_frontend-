@@ -410,12 +410,25 @@
       <section id="blog" class="section blog" aria-labelledby="blog-title">
         <h2 id="blog-title" data-i18n="blog">Blog</h2>
         <div class="blog-controls">
-          <input id="blogSearch" type="search" placeholder="Search posts..." aria-label="Search posts" />
-          <div class="tags" role="group" aria-label="Tags">
-            <button class="tag active" data-tag="all">All</button>
-            <button class="tag" data-tag="design">Design</button>
-            <button class="tag" data-tag="devops">DevOps</button>
-            <button class="tag" data-tag="culture">Culture</button>
+          <div class="blog-search">
+            <input id="blogSearch" type="search" placeholder="Search posts..." aria-label="Search posts" />
+          </div>
+          <div class="blog-actions">
+            <div class="tags" role="group" aria-label="Tags">
+              <button class="tag active" data-tag="all">All</button>
+              <button class="tag" data-tag="design">Design</button>
+              <button class="tag" data-tag="devops">DevOps</button>
+              <button class="tag" data-tag="culture">Culture</button>
+            </div>
+            <div class="view" role="group" aria-label="View mode">
+              <button id="blogViewGrid" class="view-btn active" aria-label="Grid view" data-view="grid">▦</button>
+              <button id="blogViewList" class="view-btn" aria-label="List view" data-view="list">☰</button>
+            </div>
+            <select id="blogSort" aria-label="Sort posts">
+              <option value="new">Newest</option>
+              <option value="old">Oldest</option>
+              <option value="az">A–Z</option>
+            </select>
           </div>
         </div>
         <ul id="blogList" class="post-list" role="list"></ul>
