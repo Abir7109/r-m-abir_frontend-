@@ -122,10 +122,10 @@
     cps.forEach(cp => {
       const p = path.getPointAtLength(cp.pos * len);
       const el = document.createElement('div');
-      el.className = 'checkpoint';
+      el.className = 'checkpoint ' + (cp.pos < 0.5 ? 'above' : 'below');
       el.style.left = (p.x / path.ownerSVGElement.viewBox.baseVal.width * 100) + '%';
       el.style.top = (p.y / path.ownerSVGElement.viewBox.baseVal.height * 100) + '%';
-      el.innerHTML = `<div class="dot"></div><div class="label"><strong>${cp.year}</strong> · ${cp.text}</div>`;
+      el.innerHTML = `<div class=\"dot\"></div><span class=\"pill\">${cp.year}</span><div class=\"card\"><strong>${cp.year}</strong><br/>${cp.text}</div>`;
       routeEl.appendChild(el);
       cp._el = el; cp._abs = cp.pos * len;
     });

@@ -158,12 +158,18 @@ input:checked + .slider:before { transform: translateX(22px); }
 .circle-meta span { font-size: 12px; color: var(--c-muted); }
 
 /* Journey route */
-.journey-route { position: relative; margin-top: 12px; }
-.route-svg { width: 100%; height: auto; display: block; }
-.checkpoint { position: absolute; transform: translate(-50%, -50%); text-align: center; }
-.checkpoint .dot { width: 14px; height: 14px; border-radius: 50%; background: #0c2b4e; border: 3px solid #9fd3ff; box-shadow: 0 0 0 rgba(159,211,255,0.0); margin: 0 auto 6px; transition: box-shadow .2s ease, transform .2s ease; }
-.checkpoint.hit .dot { box-shadow: 0 0 16px rgba(159,211,255,0.8), 0 0 4px rgba(159,211,255,0.9) inset; transform: scale(1.1); }
-.checkpoint .label { font-size: 12px; color: var(--c-text); white-space: nowrap; background: rgba(0,0,0,0.25); padding: 3px 6px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); }
+.journey-route { position: relative; margin-top: 12px; padding: 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.10); background: linear-gradient(180deg, rgba(26,61,100,0.25), rgba(9,32,58,0.15)); box-shadow: var(--shadow); overflow: visible; }
+.route-svg { width: 100%; height: clamp(220px, 38vw, 340px); display: block; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.25)); }
+#routePath { filter: drop-shadow(0 0 10px rgba(159,211,255,0.15)); }
+.checkpoint { position: absolute; transform: translate(-50%, -50%); text-align: left; }
+.checkpoint .dot { width: 12px; height: 12px; border-radius: 50%; background: #0c2b4e; border: 3px solid #9fd3ff; box-shadow: 0 0 0 rgba(159,211,255,0.0); margin: 0 auto 6px; transition: box-shadow .25s ease, transform .2s ease; }
+.checkpoint.hit .dot, .checkpoint:hover .dot { box-shadow: 0 0 10px rgba(159,211,255,0.45); transform: scale(1.08); }
+.checkpoint .pill { display:inline-block; font-size: 12px; color: var(--c-text); white-space: nowrap; background: rgba(0,0,0,0.25); padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(4px); }
+.checkpoint .card { position: absolute; left: 50%; transform: translate(-50%, -14px); width: max-content; max-width: 220px; background: rgba(11,37,68,0.85); color: var(--c-text); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 8px 10px; box-shadow: 0 10px 24px rgba(0,0,0,0.35); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.checkpoint.below .card { transform: translate(-50%, 14px); }
+.checkpoint .card::after { content:""; position:absolute; left:50%; transform:translateX(-50%); width:10px; height:10px; background: inherit; border-left:1px solid rgba(255,255,255,0.12); border-top:1px solid rgba(255,255,255,0.12); rotate:45deg; top:-5px; }
+.checkpoint.below .card::after { top:auto; bottom:-5px; rotate:225deg; }
+.checkpoint.hit .card, .checkpoint:hover .card { opacity: 1; }
 
 /* Projects */
 .filters { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
