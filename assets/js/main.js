@@ -420,7 +420,6 @@
         <p>Localization is more than translation. Arabic/RTL needs <strong>mirrored UI</strong>; 
         languages like Russian change <strong>plural forms</strong>.</p>
         <p>Emoji render differently across platforms—avoid using them as critical UI.</p>
-        <p>Bake i18n into design tokens and component APIs early.</p>
       `
     }
   ];
@@ -653,22 +652,6 @@
     io.observe(skills);
   }
 
-  // Simple i18n (EN/JA)
-  const strings = {
-    en: { home: 'Home', about: 'About', projects: 'Projects', resume: 'Resume', blog: 'Blog', contact: 'Contact', explore: 'Explore My Work' },
-    ja: { home: 'ホーム', about: '自己紹介', projects: '制作物', resume: '履歴書', blog: 'ブログ', contact: '連絡', explore: '作品を見る' }
-  };
-  const langSelect = qs('#langSelect');
-  function applyLang(lang) {
-    qsa('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (strings[lang] && strings[lang][key]) el.textContent = strings[lang][key];
-    });
-    localStorage.setItem('lang', lang);
-  }
-  const savedLang = localStorage.getItem('lang') || 'en';
-  langSelect.value = savedLang; applyLang(savedLang);
-  langSelect.addEventListener('change', () => applyLang(langSelect.value));
 
   // Contact form (sci-fi enhanced)
   const form = qs('#contactForm');
