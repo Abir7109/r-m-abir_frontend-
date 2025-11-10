@@ -92,6 +92,38 @@
     });
   });
 
+  // Auto set thumbnails from project metadata (Open Graph)
+  async function fetchOg(url) {
+    try {
+      const u = new URL(url);
+      const proxy = `https://r.jina.ai/${u.protocol}//${u.host}${u.pathname}`;
+      const res = await fetch(proxy, { headers: { 'Accept': 'text/html' } });
+      if (!res.ok) throw new Error('fetch failed');
+      const txt = await res.text();
+      const m = txt.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i)
+             || txt.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
+      if (m && m[1]) {
+        const abs = new URL(m[1], url).href; return abs;
+      }
+    } catch (e) { /* ignore */ }
+    return null;
+  }
+  (async () => {
+    const items = qsa('.project-card.neo');
+    for (const card of items) {
+      const live = card.getAttribute('data-live') || card.querySelector('.actions a[href]')?.href;
+      if (!live || live === '#') continue;
+      const img = await fetchOg(live);
+      if (img) {
+        const el = card.querySelector('.shot .img');
+        if (el) {
+          el.style.setProperty('--bg', `url('${img}')`);
+          el.style.background = `url('${img}') center/cover no-repeat`;
+        }
+      }
+    }
+  })();
+
   // Case study buttons to open <details>
   qsa('[data-case]').forEach(btn => btn.addEventListener('click', () => {
     const id = 'case-' + btn.dataset.case;
