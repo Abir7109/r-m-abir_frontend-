@@ -14,7 +14,7 @@ export default function Hero() {
         </div>
       </div>
       <div className="flex-1">
-        <Image src="/portrait.jpg" alt="Portrait" width={560} height={740} priority className="mx-auto h-auto max-h-[520px] w-auto rounded-xl border border-white/10 object-cover shadow-2xl shadow-black/40" />
+        <Image src="/portrait.jpg" alt="Portrait" width={560} height={740} priority unoptimized sizes="(min-width: 1024px) 560px, (min-width: 640px) 50vw, 90vw" className="mx-auto h-auto max-h-[520px] w-auto rounded-xl border border-white/10 object-cover shadow-2xl shadow-black/40" />
       </div>
     </section>
   );
