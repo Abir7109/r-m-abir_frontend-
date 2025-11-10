@@ -84,34 +84,52 @@
           <!-- Right: professional summary -->
           <article class="card pro-card details" aria-label="Professional Summary">
             <h3>Professional Summary</h3>
-            <p>
-              I architect and ship end‑to‑end products from concept to launch—owning system design,
-              performant front‑ends, and smooth deployments. I focus on accessible, animated user journeys that feel alive.
-            </p>
             <div class="stats">
-              <div class="stat"><div class="num">7+ yrs</div><div class="lbl">Experience</div></div>
-              <div class="stat"><div class="num">30+</div><div class="lbl">Projects</div></div>
-              <div class="stat"><div class="num">10+</div><div class="lbl">Clients</div></div>
-              <div class="stat"><div class="num">OSS</div><div class="lbl">Contributor</div></div>
+              <div class="stat"><div class="num" data-to="7" data-suffix="+ yrs">0</div><div class="lbl">Experience</div></div>
+              <div class="stat"><div class="num" data-to="30" data-suffix="+">0</div><div class="lbl">Projects</div></div>
+              <div class="stat"><div class="num" data-to="10" data-suffix="+">0</div><div class="lbl">Clients</div></div>
+              <div class="stat"><div class="num" data-to="1" data-suffix=" OSS">0</div><div class="lbl">Contributor</div></div>
             </div>
-            <div class="highlights">
-              <h4>Highlights</h4>
-              <ul class="ticks" role="list">
-                <li>Design systems with scalable component libraries</li>
-                <li>Modern tooling: TypeScript, React, Next.js, Node.js</li>
-                <li>Reliable CI/CD with Docker and cloud platforms</li>
-                <li>Accessible, high‑FPS animations and micro‑interactions</li>
-              </ul>
+            <div class="about-tabs" role="tablist">
+              <button class="tab active" data-tab="bio" role="tab" aria-controls="tab-bio" aria-selected="true">Bio</button>
+              <button class="tab" data-tab="experience" role="tab" aria-controls="tab-experience" aria-selected="false">Experience</button>
+              <button class="tab" data-tab="tools" role="tab" aria-controls="tab-tools" aria-selected="false">Tools</button>
             </div>
-            <div class="stack">
-              <span class="pill">TypeScript</span>
-              <span class="pill">React</span>
-              <span class="pill">Next.js</span>
-              <span class="pill">Node.js</span>
-              <span class="pill">Postgres</span>
-              <span class="pill">Prisma</span>
-              <span class="pill">Docker</span>
-              <span class="pill">PWA</span>
+            <div class="about-tabpanes">
+              <div class="pane active" id="tab-bio" role="tabpanel">
+                <p>
+                  I architect and ship end‑to‑end products from concept to launch—owning system design,
+                  performant front‑ends, and smooth deployments. I focus on accessible, animated user journeys that feel alive.
+                </p>
+                <div class="highlights">
+                  <h4>Highlights</h4>
+                  <ul class="ticks" role="list">
+                    <li>Design systems with scalable component libraries</li>
+                    <li>Modern tooling: TypeScript, React, Next.js, Node.js</li>
+                    <li>Reliable CI/CD with Docker and cloud platforms</li>
+                    <li>Accessible, high‑FPS animations and micro‑interactions</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="pane" id="tab-experience" role="tabpanel">
+                <ul class="ticks" role="list">
+                  <li>Led launch of multi‑tenant app with payments and analytics</li>
+                  <li>Owned design-to-code systems for rapid UI development</li>
+                  <li>Mentored juniors; improved delivery cadence and quality</li>
+                </ul>
+              </div>
+              <div class="pane" id="tab-tools" role="tabpanel">
+                <div class="stack">
+                  <span class="pill">TypeScript</span>
+                  <span class="pill">React</span>
+                  <span class="pill">Next.js</span>
+                  <span class="pill">Node.js</span>
+                  <span class="pill">Postgres</span>
+                  <span class="pill">Prisma</span>
+                  <span class="pill">Docker</span>
+                  <span class="pill">PWA</span>
+                </div>
+              </div>
             </div>
           </article>
         </div>

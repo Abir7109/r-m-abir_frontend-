@@ -176,6 +176,60 @@
   }));
   renderPosts();
 
+  // About: counters and tabs + avatar parallax
+  const about = qs('#about');
+  if (about) {
+    // animated counters
+    const nums = qsa('.stat .num', about).filter(n => n.hasAttribute('data-to'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          nums.forEach(n => {
+            if (n.dataset.done) return;
+            n.dataset.done = '1';
+            const to = parseInt(n.getAttribute('data-to'), 10) || 0;
+            const suf = n.getAttribute('data-suffix') || '';
+            const t0 = performance.now();
+            const dur = 1200;
+            function tick(ts){
+              const p = Math.min(1, (ts - t0) / dur);
+              n.textContent = Math.round(to * p) + suf;
+              if (p < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+          });
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    io.observe(about);
+
+    // tabs
+    const tabs = qsa('.about-tabs .tab', about);
+    const panes = qsa('.about-tabpanes .pane', about);
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      const id = tab.dataset.tab;
+      tabs.forEach(t => { t.classList.toggle('active', t===tab); t.setAttribute('aria-selected', t===tab ? 'true' : 'false'); });
+      panes.forEach(p => p.classList.toggle('active', p.id === 'tab-' + id));
+    }));
+
+    // avatar parallax
+    const av = qs('.avatar.large', about);
+    if (av) {
+      av.addEventListener('pointermove', (e) => {
+        const r = av.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        const x = (px - 0.5) * 4; // minor shift
+        const y = (py - 0.5) * 4;
+        av.style.backgroundPosition = `calc(50% + ${x}%) calc(52% + ${y}%)`;
+      });
+      av.addEventListener('pointerleave', () => {
+        av.style.backgroundPosition = '50% 52%';
+      });
+    }
+  }
+
   // Simple i18n (EN/JA)
   const strings = {
     en: { home: 'Home', about: 'About', projects: 'Projects', resume: 'Resume', blog: 'Blog', contact: 'Contact', explore: 'Explore My Work' },
