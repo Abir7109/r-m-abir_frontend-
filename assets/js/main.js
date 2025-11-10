@@ -242,7 +242,28 @@
         const p = Number(c.dataset.p || '0');
         const r = c.r.baseVal.value; const C = 2 * Math.PI * r;
         c.style.strokeDasharray = String(C);
-        c.style.strokeDashoffset = String(C * (1 - p/100));
+        c.style.strokeDashoffset = String(C);
+        // animate dashoffset
+        const start = performance.now(); const dur = 1400; 
+        function anim(ts){
+          const t = Math.min(1, (ts - start)/dur);
+          c.style.strokeDashoffset = String(C * (1 - (p/100)*t));
+          if (t < 1) requestAnimationFrame(anim);
+        }
+        requestAnimationFrame(anim);
+        // numeric value in center
+        const wrap = c.closest('.circle');
+        if (wrap) {
+          let v = wrap.querySelector('.circle-val');
+          if (!v) { v = document.createElement('div'); v.className = 'circle-val'; wrap.appendChild(v); }
+          const nstart = performance.now(); const ndur = 900; 
+          function num(ts){
+            const t = Math.min(1, (ts - nstart)/ndur);
+            v.textContent = Math.round(p*t) + '%';
+            if (t < 1) requestAnimationFrame(num);
+          }
+          requestAnimationFrame(num);
+        }
       });
     };
     const io = new IntersectionObserver((entries) => {

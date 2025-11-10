@@ -145,11 +145,12 @@ input:checked + .slider:before { transform: translateX(22px); }
 @media (max-width: 700px){ .bar-row { grid-template-columns: 1fr; } .bar-row label { margin-bottom: 4px; } }
 /* Circles */
 .circles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
-.circle { display: grid; place-items: center; gap: 6px; padding: 8px; border-radius: 12px; min-width: 0; }
+.circle { position: relative; display: grid; place-items: center; gap: 6px; padding: 8px; border-radius: 12px; min-width: 0; }
 .circle svg { transform: rotate(-90deg); width: clamp(88px, 28vw, 120px); height: auto; }
 .circle-track { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 10; }
-.circle-progress { fill: none; stroke: url(#routeGrad), #1D546C; stroke-width: 10; stroke-linecap: round; stroke-dasharray: 327; stroke-dashoffset: 327; transition: stroke-dashoffset 1.6s ease-out; }
-.circle-meta { text-align: center; }
+.circle-progress { fill: none; stroke: #9fd3ff; filter: drop-shadow(0 0 6px rgba(159,211,255,0.5)); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 327; stroke-dashoffset: 327; transition: stroke-dashoffset 1.6s ease-out; }
+.circle-val { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 800; color: var(--c-text); text-shadow: 0 1px 6px rgba(0,0,0,0.4); pointer-events: none; }
+.circle-meta { text-align: center; margin-top: 4px; }
 .circle-meta strong { display: block; }
 .circle-meta span { font-size: 12px; color: var(--c-muted); }
 
