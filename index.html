@@ -30,7 +30,6 @@
           <li><a href="#home" data-i18n="home">Home</a></li>
           <li><a href="#about" data-i18n="about">About</a></li>
           <li><a href="#projects" data-i18n="projects">Projects</a></li>
-          <li><a href="#resume" data-i18n="resume">Resume</a></li>
           <li><a href="#blog" data-i18n="blog">Blog</a></li>
           <li><a href="#contact" data-i18n="contact">Contact</a></li>
         </ul>
@@ -450,52 +449,203 @@
         <ul id="blogList" class="post-list" role="list"></ul>
       </section>
 
-      <!-- Resume -->
-      <section id="resume" class="section resume" aria-labelledby="resume-title">
-        <h2 id="resume-title" data-i18n="resume">Resume</h2>
-        <div class="resume-viewer">
-          <iframe title="Resume" src="/assets/resume.pdf" loading="lazy"></iframe>
-          <div class="resume-actions">
-            <a class="btn" href="/assets/resume.pdf" download>Download</a>
-            <button class="btn" onclick="window.print()">Print</button>
-          </div>
-        </div>
-      </section>
 
-      <!-- Contact -->
-      <section id="contact" class="section contact" aria-labelledby="contact-title">
-        <h2 id="contact-title" data-i18n="contact">Contact</h2>
-        <form id="contactForm" class="contact-form" novalidate>
-          <div class="row">
-            <label for="name">Name</label>
-            <input id="name" name="name" required />
+      <!-- Contact (Sci‑Fi) -->
+      <section id="contact" class="section contact-sci" aria-labelledby="contact-title">
+        <div class="contact-bg-grid"></div>
+        <div class="contact-inner">
+          <header class="contact-header">
+            <h2 id="contact-title" data-i18n="contact">Contact</h2>
+            <p class="contact-subtitle">Initialize Communication Protocol</p>
+          </header>
+
+          <div class="contact-layout">
+            <!-- Left: Social Links & Info -->
+            <aside class="contact-sidebar">
+              <div class="contact-hologram">
+                <div class="holo-circle"></div>
+                <div class="holo-circle"></div>
+                <div class="holo-circle"></div>
+                <div class="holo-avatar"></div>
+              </div>
+
+              <div class="contact-info">
+                <h3 class="info-title">Connect With Me</h3>
+                <p class="info-text">Available channels for collaboration</p>
+                
+                <div class="social-grid">
+                  <a href="https://github.com/" target="_blank" rel="noopener" class="social-link" data-platform="GitHub">
+                    <div class="social-icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M12 .5a12 12 0 00-3.79 23.4c.6.1.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.4-1.34-1.78-1.34-1.78-1.1-.76.08-.75.08-.75 1.22.09 1.86 1.26 1.86 1.26 1.08 1.86 2.82 1.33 3.5 1.02.11-.8.42-1.33.76-1.64-2.67-.31-5.47-1.38-5.47-6.12 0-1.35.47-2.45 1.24-3.31-.12-.31-.54-1.57.12-3.27 0 0 1.01-.32 3.31 1.26a11.5 11.5 0 016.02 0c2.3-1.58 3.31-1.26 3.31-1.26.66 1.7.24 2.96.12 3.27.77.86 1.24 1.96 1.24 3.31 0 4.76-2.8 5.8-5.48 6.11.43.37.81 1.1.81 2.22v3.3c0 .32.22.69.83.57A12 12 0 0012 .5z"/>
+                      </svg>
+                    </div>
+                    <span class="social-label">GitHub</span>
+                    <div class="social-pulse"></div>
+                  </a>
+
+                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="social-link" data-platform="LinkedIn">
+                    <div class="social-icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.8v2.2h.07c.67-1.2 2.3-2.46 4.73-2.46 5.06 0 6 3.33 6 7.67V24h-5v-7.1c0-1.7-.03-3.88-2.36-3.88-2.36 0-2.72 1.84-2.72 3.76V24h-5V8z"/>
+                      </svg>
+                    </div>
+                    <span class="social-label">LinkedIn</span>
+                    <div class="social-pulse"></div>
+                  </a>
+
+                  <a href="https://twitter.com/" target="_blank" rel="noopener" class="social-link" data-platform="Twitter">
+                    <div class="social-icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                    </div>
+                    <span class="social-label">Twitter</span>
+                    <div class="social-pulse"></div>
+                  </a>
+
+                  <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-link" data-platform="Instagram">
+                    <div class="social-icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5a5 5 0 100 10 5 5 0 000-10zm6-1a1 1 0 110 2 1 1 0 010-2z"/>
+                      </svg>
+                    </div>
+                    <span class="social-label">Instagram</span>
+                    <div class="social-pulse"></div>
+                  </a>
+
+                  <a href="mailto:hello@example.com" class="social-link" data-platform="Email">
+                    <div class="social-icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M2 6a2 2 0 012-2h16a2 2 0 012 2v.35l-10 6.25L2 6.35V6zm0 2.74V18a2 2 0 002 2h16a2 2 0 002-2V8.74l-9.51 5.94a2 2 0 01-2.1 0L2 8.74z"/>
+                      </svg>
+                    </div>
+                    <span class="social-label">Email</span>
+                    <div class="social-pulse"></div>
+                  </a>
+
+                  <a href="https://discord.com/" target="_blank" rel="noopener" class="social-link" data-platform="Discord">
+                    <div class="social-icon">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill="currentColor" d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                      </svg>
+                    </div>
+                    <span class="social-label">Discord</span>
+                    <div class="social-pulse"></div>
+                  </a>
+                </div>
+
+                <div class="response-time">
+                  <div class="response-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Usually responds within 24 hours</span>
+                  </div>
+                </div>
+              </div>
+            </aside>
+
+            <!-- Right: Contact Form -->
+            <div class="contact-main">
+              <form id="contactForm" class="contact-form-sci" action="https://formspree.io/f/xeokyndr" method="POST" novalidate>
+                <div class="form-header">
+                  <div class="form-status" id="formStatus">
+                    <span class="status-icon">⚡</span>
+                    <span class="status-label">Transmission Ready</span>
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="name" class="field-label">
+                      <span class="label-text">Identifier</span>
+                      <span class="label-required">*</span>
+                    </label>
+                    <div class="field-wrapper">
+                      <input id="name" name="name" type="text" placeholder="Your full name" required autocomplete="name" />
+                      <div class="field-line"></div>
+                    </div>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="email" class="field-label">
+                      <span class="label-text">Signal Address</span>
+                      <span class="label-required">*</span>
+                    </label>
+                    <div class="field-wrapper">
+                      <input id="email" name="email" type="email" placeholder="you@example.com" required autocomplete="email" />
+                      <div class="field-line"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="subject" class="field-label">
+                      <span class="label-text">Transmission Topic</span>
+                    </label>
+                    <div class="field-wrapper">
+                      <input id="subject" name="subject" type="text" placeholder="What's this about?" />
+                      <div class="field-line"></div>
+                    </div>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="purpose" class="field-label">
+                      <span class="label-text">Mission Type</span>
+                    </label>
+                    <div class="field-wrapper">
+                      <select id="purpose" name="purpose">
+                        <option value="general">General Inquiry</option>
+                        <option value="collaboration">Collaboration</option>
+                        <option value="hire">Project Opportunity</option>
+                        <option value="consult">Consultation</option>
+                      </select>
+                      <div class="field-line"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-field form-field-full">
+                  <label for="message" class="field-label">
+                    <span class="label-text">Message Payload</span>
+                    <span class="label-required">*</span>
+                  </label>
+                  <div class="field-wrapper">
+                    <textarea id="message" name="message" rows="6" placeholder="Encode your message here..." required></textarea>
+                    <div class="field-line"></div>
+                  </div>
+                  <div class="char-count">
+                    <span id="charCount">0</span> characters
+                  </div>
+                </div>
+
+                <div class="form-footer">
+                  <label class="consent-check">
+                    <input type="checkbox" id="consent" required />
+                    <span class="check-box">
+                      <svg viewBox="0 0 12 10" class="check-icon">
+                        <polyline points="1.5 6 4.5 9 10.5 1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span class="check-label">I authorize response transmission</span>
+                  </label>
+
+                  <button class="btn-neon" type="submit">
+                    <span class="btn-bg"></span>
+                    <span class="btn-content">
+                      <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18">
+                        <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                      </svg>
+                      <span class="btn-text">Transmit Message</span>
+                    </span>
+                    <span class="btn-shine"></span>
+                  </button>
+                </div>
+
+                <div class="form-message" id="contactMessage" role="status" aria-live="polite"></div>
+              </form>
+            </div>
           </div>
-          <div class="row">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required />
-          </div>
-          <div class="row">
-            <label for="purpose">Purpose</label>
-            <select id="purpose" name="purpose">
-              <option>General</option>
-              <option>Collaboration</option>
-              <option>Hire</option>
-            </select>
-          </div>
-          <div class="row">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-          <button class="btn" type="submit">Send</button>
-        </form>
-        <div class="socials" aria-label="Social links">
-          <a href="https://github.com/" aria-label="GitHub">GitHub</a>
-          <a href="https://www.linkedin.com/" aria-label="LinkedIn">LinkedIn</a>
-          <a href="https://instagram.com/" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="Hacker profile">Hacker</a>
-        </div>
-        <div class="map">
-          <iframe title="Dhaka" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Dhaka&output=embed"></iframe>
         </div>
       </section>
     </main>

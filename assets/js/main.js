@@ -668,21 +668,69 @@
   langSelect.value = savedLang; applyLang(savedLang);
   langSelect.addEventListener('change', () => applyLang(langSelect.value));
 
-  // Contact form (client-only demo)
+  // Contact form (sci-fi enhanced)
   const form = qs('#contactForm');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const data = Object.fromEntries(new FormData(form).entries());
-    if (!data.name || !data.email || !data.message) {
-      alert('Please fill all required fields.');
-      return;
+  const messageField = qs('#message');
+  const charCount = qs('#charCount');
+  const contactMessage = qs('#contactMessage');
+  const formStatus = qs('#formStatus');
+  
+  // Character counter for message field
+  if (messageField && charCount) {
+    messageField.addEventListener('input', () => {
+      const count = messageField.value.length;
+      charCount.textContent = count;
+      charCount.style.color = count > 500 ? '#ff4444' : 'var(--c-muted)';
+    });
+  }
+  
+  // Form submission with enhanced feedback
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      
+      // Validation
+      if (!data.name || !data.email || !data.message || !data.consent) {
+        showFormMessage('Please fill all required fields and accept consent.', 'error');
+        return;
+      }
+      
+      // Update status
+      if (formStatus) {
+        formStatus.querySelector('.status-label').textContent = 'Transmitting...';
+        formStatus.querySelector('.status-icon').textContent = '📡';
+      }
+      
+      // Simulate submission (integrate with backend)
+      setTimeout(() => {
+        console.log('Contact submission', data);
+        localStorage.setItem('lastContact', JSON.stringify({ ...data, ts: Date.now() }));
+        
+        showFormMessage('Message transmitted successfully! I\'ll respond within 24 hours.', 'success');
+        form.reset();
+        if (charCount) charCount.textContent = '0';
+        
+        // Reset status
+        if (formStatus) {
+          setTimeout(() => {
+            formStatus.querySelector('.status-label').textContent = 'Transmission Ready';
+            formStatus.querySelector('.status-icon').textContent = '⚡';
+          }, 2000);
+        }
+      }, 1500);
+    });
+  }
+  
+  function showFormMessage(msg, type) {
+    if (contactMessage) {
+      contactMessage.textContent = msg;
+      contactMessage.className = 'form-message ' + type;
+      setTimeout(() => {
+        contactMessage.className = 'form-message';
+      }, 5000);
     }
-    // Demo: log and fake success; integrate backend or service later
-    console.log('Contact submission', data);
-    localStorage.setItem('lastContact', JSON.stringify({ ...data, ts: Date.now() }));
-    alert('Thanks! I will get back to you.');
-    form.reset();
-  });
+  }
 
   // Contrast toggle for accessibility
   qs('#contrastToggle').addEventListener('click', () => {
