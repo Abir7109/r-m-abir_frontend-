@@ -354,9 +354,9 @@
 
   // Blog posts (sample data)
   const posts = [
-    { title: 'Designing with Motion', tags: ['design'], date: '2025-10-01', excerpt: 'Principles for tasteful animation.' },
-    { title: 'DevOps for Solo Devs', tags: ['devops'], date: '2025-09-20', excerpt: 'CI/CD without the pain.' },
-    { title: 'Cultural UX Insights', tags: ['culture', 'design'], date: '2025-08-15', excerpt: 'Cross‑cultural design notes.' }
+    { title: 'Designing with Motion', tags: ['design'], date: '2025-10-01', excerpt: 'Principles for tasteful animation.', img: '/assets/img/blog/design.svg' },
+    { title: 'DevOps for Solo Devs', tags: ['devops'], date: '2025-09-20', excerpt: 'CI/CD without the pain.', img: '/assets/img/blog/devops.svg' },
+    { title: 'Cultural UX Insights', tags: ['culture', 'design'], date: '2025-08-15', excerpt: 'Cross‑cultural design notes.', img: '/assets/img/blog/culture.svg' }
   ];
   const blogList = qs('#blogList');
   const blogSearch = qs('#blogSearch');
@@ -364,6 +364,11 @@
   const viewGrid = qs('#blogViewGrid');
   const viewList = qs('#blogViewList');
   const blogSort = qs('#blogSort');
+  const tagLogos = {
+    design: '/assets/img/blog/design.svg',
+    devops: '/assets/img/blog/devops.svg',
+    culture: '/assets/img/blog/culture.svg'
+  };
   let activeTag = 'all';
   const state = {
     view: localStorage.getItem('blog:view') || 'grid',
@@ -391,8 +396,12 @@
       li.className = 'post-card';
       li.setAttribute('role','listitem');
       const h = hueFrom(p.title);
+      const primary = (p.tags && p.tags[0]) || 'design';
+      const img = p.img || tagLogos[primary];
       li.innerHTML = `
-        <div class="thumb" style="--h:${h}"></div>
+        <div class="thumb" style="--h:${h}">
+          ${img ? `<img src="${img}" alt="${p.title} thumbnail" class="thumb-img" loading="lazy"/>` : ''}
+        </div>
         <div class="pc-body">
           <div class="pc-head">
             <h3 class="pc-title">${hi(p.title, q)}</h3>
