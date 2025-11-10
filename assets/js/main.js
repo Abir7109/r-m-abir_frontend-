@@ -725,45 +725,80 @@
   });
   if (localStorage.getItem('contrast') === '1') root.classList.add('contrast');
 
-  // Bot assistant (toy)
+  // Futuristic AI Bot Assistant
   const botToggle = qs('#botToggle');
   const botPanel = qs('#botPanel');
   const botBody = qs('#botBody');
   const botForm = qs('#botForm');
   const botInput = qs('#botInput');
-  const botClose = qs('.bot-header .close');
+  const botClose = qs('.bot-close');
 
-  function botSay(txt) {
+  function botSay(txt, isUser = false) {
+    // Remove welcome message if it exists
+    const welcome = botBody.querySelector('.bot-welcome');
+    if (welcome) welcome.remove();
+    
     const div = document.createElement('div');
     div.className = 'bot-msg';
     div.textContent = txt;
+    if (isUser) {
+      div.style.background = 'linear-gradient(135deg, rgba(0, 119, 255, 0.15), rgba(0, 255, 255, 0.1))';
+      div.style.borderColor = 'rgba(0, 119, 255, 0.4)';
+      div.style.marginLeft = 'auto';
+      div.style.maxWidth = '80%';
+    }
     botBody.appendChild(div);
     botBody.scrollTop = botBody.scrollHeight;
   }
+  
   function botReply(q) {
     const s = q.toLowerCase();
-    if (s.includes('mess')) return 'Mess Manager: full-stack app with billing and analytics.';
-    if (s.includes('vault')) return 'Cousins Vault: family‑first knowledge base with RBAC.';
-    if (s.includes('japanese')) return 'Japanese Coaching: JLPT practice with SRS and voice.';
-    if (s.includes('contact')) return 'Use the Contact section or email me — happy to connect!';
-    return 'Ask about projects, blog, or resume. Type "projects" to jump there.';
+    if (s.includes('mess')) return '🚀 Mess Manager: Full-stack app with billing, analytics, and real-time updates.';
+    if (s.includes('vault')) return '🔒 Cousins Vault: Family knowledge base with role-based access control.';
+    if (s.includes('japanese')) return '🗾 Japanese Coaching: JLPT practice platform with SRS and voice recognition.';
+    if (s.includes('skill')) return '💻 My core skills include React, Node.js, TypeScript, Python, and full-stack development.';
+    if (s.includes('contact')) return '📧 You can reach me via the Contact section or through any social media links!';
+    if (s.includes('experience') || s.includes('year')) return '⏱️ I have 7+ years of professional development experience with 30+ completed projects.';
+    if (s.includes('about') || s.includes('who')) return '👋 I\'m R.M.Abir71, a full-stack developer passionate about building modern web applications.';
+    return '🤖 Ask me about projects, skills, experience, or how to contact me. Type "skills" or "projects" for more info.';
   }
-  botToggle.addEventListener('click', () => {
-    const open = !botPanel.classList.contains('open');
-    botPanel.classList.toggle('open', open);
-    botToggle.setAttribute('aria-expanded', String(open));
-    if (open && botBody.childElementCount === 0) botSay('Hi! I\'m your guide.');
-  });
-  botClose.addEventListener('click', () => botPanel.classList.remove('open'));
-  botForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const q = botInput.value.trim(); if (!q) return;
-    botSay('You: ' + q);
-    const r = botReply(q);
-    botSay('Bot: ' + r);
-    if (q.toLowerCase().includes('project')) qs('#projects')?.scrollIntoView({ behavior: 'smooth' });
-    botInput.value = '';
-  });
+  
+  if (botToggle && botPanel && botClose && botForm && botInput && botBody) {
+    botToggle.addEventListener('click', () => {
+      const open = !botPanel.classList.contains('open');
+      botPanel.classList.toggle('open', open);
+      botToggle.setAttribute('aria-expanded', String(open));
+    });
+    
+    botClose.addEventListener('click', () => {
+      botPanel.classList.remove('open');
+      botToggle.setAttribute('aria-expanded', 'false');
+    });
+    
+    botForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = botInput.value.trim(); 
+      if (!q) return;
+      
+      botSay('You: ' + q, true);
+      botInput.value = '';
+      
+      // Simulate thinking delay
+      setTimeout(() => {
+        const r = botReply(q);
+        botSay('Assistant: ' + r);
+        
+        // Auto-navigate if relevant
+        if (q.toLowerCase().includes('project')) {
+          setTimeout(() => qs('#projects')?.scrollIntoView({ behavior: 'smooth' }), 500);
+        } else if (q.toLowerCase().includes('contact')) {
+          setTimeout(() => qs('#contact')?.scrollIntoView({ behavior: 'smooth' }), 500);
+        } else if (q.toLowerCase().includes('skill')) {
+          setTimeout(() => qs('#skills')?.scrollIntoView({ behavior: 'smooth' }), 500);
+        }
+      }, 600);
+    });
+  }
 
   // Local analytics (basic)
   const analytics = JSON.parse(localStorage.getItem('analytics') || '{}');

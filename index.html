@@ -819,25 +819,121 @@
       </section>
     </main>
 
-    <!-- Cyberpunk Assistant -->
-    <button id="botToggle" class="bot-toggle" aria-haspopup="dialog" aria-controls="botPanel" aria-expanded="false">AI</button>
-    <div id="botPanel" class="bot-panel" role="dialog" aria-modal="false" aria-label="Assistant">
-      <div class="bot-header">
-        <strong>Assistant</strong>
-        <button class="close" aria-label="Close">✕</button>
+    <!-- Futuristic AI Assistant -->
+    <button id="botToggle" class="bot-toggle-sci" aria-haspopup="dialog" aria-controls="botPanel" aria-expanded="false">
+      <div class="bot-toggle-inner">
+        <svg class="bot-icon" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+        <div class="bot-pulse-ring"></div>
+        <div class="bot-pulse-ring bot-pulse-ring-2"></div>
       </div>
-      <div class="bot-body" id="botBody" aria-live="polite"></div>
-      <form id="botForm" class="bot-form">
-        <input id="botInput" placeholder="Ask about projects…" aria-label="Assistant input" />
-        <button type="submit" class="btn btn-sm">Send</button>
+    </button>
+    <div id="botPanel" class="bot-panel-sci" role="dialog" aria-modal="false" aria-label="AI Assistant">
+      <div class="bot-header-sci">
+        <div class="bot-header-content">
+          <div class="bot-status-indicator">
+            <span class="status-dot"></span>
+            <span class="status-text">ONLINE</span>
+          </div>
+          <h3 class="bot-title">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M20 9V7c0-1.1-.9-2-2-2h-3c0-1.66-1.34-3-3-3S9 3.34 9 5H6c-1.1 0-2 .9-2 2v2c-1.66 0-3 1.34-3 3s1.34 3 3 3v4c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4c1.66 0 3-1.34 3-3s-1.34-3-3-3zM7.5 11.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5S9.83 13 9 13s-1.5-.67-1.5-1.5zM16 17H8v-2h8v2zm-1-4c-.83 0-1.5-.67-1.5-1.5S14.17 10 15 10s1.5.67 1.5 1.5S15.83 13 15 13z"/>
+            </svg>
+            NEURAL ASSISTANT
+          </h3>
+        </div>
+        <button class="bot-close" aria-label="Close">
+          <svg viewBox="0 0 24 24" width="18" height="18">
+            <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="bot-body-sci" id="botBody" aria-live="polite">
+        <div class="bot-welcome">
+          <div class="welcome-icon">🤖</div>
+          <p>Neural Assistant v2.1 initialized</p>
+          <p class="welcome-hint">Ask me about projects, skills, or anything else...</p>
+        </div>
+      </div>
+      <form id="botForm" class="bot-form-sci">
+        <div class="bot-input-wrapper">
+          <input id="botInput" placeholder="Query neural network..." aria-label="Assistant input" autocomplete="off" />
+          <div class="input-scan-line"></div>
+        </div>
+        <button type="submit" class="bot-send-btn" aria-label="Send message">
+          <svg viewBox="0 0 24 24" width="20" height="20">
+            <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+          </svg>
+        </button>
       </form>
     </div>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <span>© <span id="year"></span> R.M.Abir71</span>
-        <button id="contrastToggle" class="link">Contrast</button>
-        <a class="link" href="/admin.html" rel="nofollow">Admin</a>
+    <footer class="site-footer-sci">
+      <div class="footer-grid-line"></div>
+      <div class="footer-inner-sci">
+        <div class="footer-main">
+          <div class="footer-brand">
+            <div class="footer-logo">
+              <img src="/assets/icons/logo.png" alt="R.M.Abir71" width="32" height="32" />
+              <div class="logo-glow"></div>
+            </div>
+            <div class="footer-brand-text">
+              <h4>R.M.Abir71</h4>
+              <p>Building the future, one line at a time</p>
+            </div>
+          </div>
+          
+          <div class="footer-links">
+            <div class="footer-column">
+              <h5>Navigate</h5>
+              <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+              </ul>
+            </div>
+            
+            <div class="footer-column">
+              <h5>Connect</h5>
+              <ul>
+                <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="https://linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+            
+            <div class="footer-column">
+              <h5>Resources</h5>
+              <ul>
+                <li><a href="/assets/resume.pdf" download>Resume</a></li>
+                <li><button id="contrastToggle" class="footer-link-btn">Accessibility</button></li>
+                <li><a href="/admin.html" rel="nofollow">Admin</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <div class="footer-copyright">
+            <span>© <span id="year"></span> R.M.Abir71. All rights reserved.</span>
+          </div>
+          <div class="footer-status">
+            <span class="status-indicator-footer">
+              <span class="status-dot-footer"></span>
+              <span>System Online</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-particles" aria-hidden="true">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
       </div>
     </footer>
   </body>
