@@ -3,33 +3,49 @@
   const qs = (s, el=document) => el.querySelector(s);
   const qsa = (s, el=document) => [...el.querySelectorAll(s)];
 
-  // Theme toggle
-  const themeToggle = qs('#themeToggle');
+  // Modern Theme Toggle
+  const themeToggleBtn = qs('#themeToggleBtn');
   const root = document.documentElement;
-  const storedTheme = localStorage.getItem('theme');
-  if (storedTheme) root.setAttribute('data-theme', storedTheme);
-  themeToggle.checked = root.getAttribute('data-theme') !== 'dark' ? false : true;
-  themeToggle.addEventListener('change', () => {
-    const theme = themeToggle.checked ? 'dark' : 'light';
-    root.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  });
+  const storedTheme = localStorage.getItem('theme') || 'dark';
+  root.setAttribute('data-theme', storedTheme);
+  
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = root.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  }
 
-  // Sticky header
-  const header = qs('.site-header');
-  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
-  document.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  // Modern Sticky Header
+  const header = qs('.site-header-modern');
+  if (header) {
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
-  // Mobile nav
-  const navToggle = qs('.nav-toggle');
-  const navLinks = qs('.nav-links');
-  navToggle.addEventListener('click', () => {
-    const open = !navLinks.classList.contains('open');
-    navLinks.classList.toggle('open', open);
-    navToggle.setAttribute('aria-expanded', String(open));
-  });
+  // Modern Mobile Navigation
+  const navToggle = qs('.nav-toggle-modern');
+  const navLinks = qs('.nav-links-modern');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const open = !navLinks.classList.contains('open');
+      navLinks.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+    
+    // Close menu when clicking nav links
+    qsa('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
+  // Smooth scroll
   // Smooth scroll
   qsa('a[href^="#"]').forEach(a => a.addEventListener('click', (e) => {
     const id = a.getAttribute('href');
