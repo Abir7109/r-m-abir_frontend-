@@ -105,7 +105,7 @@ input:checked + .slider:before { transform: translateX(22px); }
 .social-mini a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: #9fd3ff; text-decoration: none; transition: transform .12s ease, background .2s ease, border-color .2s ease, color .2s ease; }
 .social-mini a:hover { transform: translateY(-2px); background: rgba(159,211,255,0.12); border-color: #9fd3ff; color: #fff; }
 .social-mini svg { width: 18px; height: 18px; display: block; }
-.stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin: 12px 0; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 12px 0; }
 .stat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 10px; text-align: center; transition: transform .15s ease, box-shadow .2s ease; }
 .stat:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.35); }
 .stat .num { font-weight: 800; font-size: 1.1rem; }
