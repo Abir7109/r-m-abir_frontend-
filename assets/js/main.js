@@ -230,6 +230,27 @@
     }
   }
 
+  // Skills animation (bars + circles)
+  const skills = qs('#skills');
+  if (skills) {
+    const run = () => {
+      qsa('.bar-fill', skills).forEach(b => {
+        const p = Number(b.dataset.p || '0');
+        b.style.width = p + '%';
+      });
+      qsa('.circle-progress', skills).forEach(c => {
+        const p = Number(c.dataset.p || '0');
+        const r = c.r.baseVal.value; const C = 2 * Math.PI * r;
+        c.style.strokeDasharray = String(C);
+        c.style.strokeDashoffset = String(C * (1 - p/100));
+      });
+    };
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) { run(); io.disconnect(); }
+    }, { threshold: 0.25 });
+    io.observe(skills);
+  }
+
   // Simple i18n (EN/JA)
   const strings = {
     en: { home: 'Home', about: 'About', projects: 'Projects', resume: 'Resume', blog: 'Blog', contact: 'Contact', explore: 'Explore My Work' },
