@@ -352,19 +352,75 @@
     document.addEventListener('scroll', () => raf || update(), { passive: true });
   }
 
-  // Blog posts (curated)
+  // Blog posts (4 only)
   const posts = [
-    { title: 'Why Subtle Motion Improves UX in 2025', tags: ['design'], date: '2025-11-10', excerpt: 'Micro‑interactions guide attention, reduce cognitive load, and create a premium feel—without distracting users.' },
-    { title: 'Ship Faster with GitHub Actions Matrix Builds', tags: ['devops'], date: '2025-11-05', excerpt: 'Parallelize tests across Node versions and OSes, cache dependencies smartly, and keep pipelines under 5 minutes.' },
-    { title: 'Designing for Dark Mode: Practical Contrast & Color', tags: ['design'], date: '2025-10-28', excerpt: 'Avoid pure black, lean on semantic tokens, and validate contrast for real environments and OLED screens.' },
-    { title: 'Pragmatic Performance Budgets for the Frontend', tags: ['devops','design'], date: '2025-10-20', excerpt: 'Set budgets for JS, CLS, and LCP—and enforce them with CI so regressions never reach production.' },
-    { title: 'Cultural UX: RTL, Locales, and Emoji Pitfalls', tags: ['culture','design'], date: '2025-10-12', excerpt: 'Layout mirroring, pluralization, and font fallback can break faster than you think—plan for them upfront.' },
-    { title: 'From Monolith to Services—Without the Pain', tags: ['devops'], date: '2025-10-01', excerpt: 'Strangle patterns, well‑defined boundaries, and gradual extraction keep delivery running while you split.' },
-    { title: 'Animating Data Viz Responsibly', tags: ['design'], date: '2025-09-22', excerpt: 'Use motion to encode change over time, respect reduced‑motion settings, and avoid misleading easing.' },
-    { title: 'Secure by Default: Handling Secrets in Frontend', tags: ['devops'], date: '2025-09-15', excerpt: 'Never ship secrets. Use server proxies, signed URLs, and environment‑based configuration safely.' },
-    { title: 'Design Tokens: One Source of Truth', tags: ['design'], date: '2025-09-05', excerpt: 'Scale themes and brands with tokens flowing from Figma to code—linted, versioned, and tested.' },
-    { title: 'Infra as Code for Solo Devs', tags: ['devops'], date: '2025-08-25', excerpt: 'Use Terraform Lite patterns, remote state, and modules to keep infra reproducible without heavy overhead.' },
-    { title: 'Cross‑Cultural Product Feedback Loops', tags: ['culture'], date: '2025-08-15', excerpt: 'Align discovery sessions, translation quality, and local expectations to prevent product‑market misreads.' }
+    { 
+      id: 'motion-ux-2025',
+      title: 'Why Subtle Motion Improves UX in 2025', 
+      tags: ['design'], 
+      date: '2025-11-10', 
+      excerpt: 'Micro‑interactions guide attention, reduce cognitive load, and create a premium feel—without distracting users.',
+      img: '/assets/img/blog/design.svg',
+      content: `
+        <p>Motion is a language. When used with restraint, it <strong>communicates hierarchy</strong>, 
+        <strong>reinforces causality</strong>, and gently <strong>guides attention</strong>.</p>
+        <h4>Principles</h4>
+        <ul>
+          <li>Prefer <em>0.18–0.28s</em> durations and ease-out curves.</li>
+          <li>Animate <em>position, opacity, scale</em>—avoid layout thrash.</li>
+          <li>Respect <code>prefers-reduced-motion</code> with graceful fallbacks.</li>
+        </ul>
+        <p>Great motion is invisible: it <em>feels</em> right, then gets out of the way.</p>
+      `
+    },
+    { 
+      id: 'actions-matrix-builds',
+      title: 'Ship Faster with GitHub Actions Matrix Builds', 
+      tags: ['devops'], 
+      date: '2025-11-05', 
+      excerpt: 'Parallelize tests across Node versions and OSes, cache dependencies smartly, and keep pipelines under 5 minutes.',
+      img: '/assets/img/blog/devops.svg',
+      content: `
+        <p>Matrix builds run jobs in parallel across environments. Combine them with 
+        <strong>setup-node cache</strong> and <strong>artifact reuse</strong> for serious speedups.</p>
+        <pre><code>strategy:
+  matrix:
+    node: [18, 20]
+    os: [ubuntu-latest, windows-latest]</code></pre>
+        <p>Keep logs readable, fail fast, and surface flaky tests early.</p>
+      `
+    },
+    { 
+      id: 'dark-mode-contrast',
+      title: 'Designing for Dark Mode: Contrast & Color', 
+      tags: ['design'], 
+      date: '2025-10-28', 
+      excerpt: 'Avoid pure black, lean on semantic tokens, and validate contrast for real environments and OLED screens.',
+      img: '/assets/img/blog/design.svg',
+      content: `
+        <p>True black (#000) can cause eye strain and haloing. Prefer deep chroma backgrounds 
+        and <strong>semantic color tokens</strong> to theme consistently.</p>
+        <ul>
+          <li>Check contrast for text and icons, not just body copy.</li>
+          <li>Use elevation and subtle borders for separation.</li>
+          <li>Test on OLED at low brightness.</li>
+        </ul>
+      `
+    },
+    { 
+      id: 'cultural-ux-rtl',
+      title: 'Cultural UX: RTL, Locales, and Emoji Pitfalls', 
+      tags: ['culture','design'], 
+      date: '2025-10-12', 
+      excerpt: 'Layout mirroring, pluralization, and font fallback can break faster than you think—plan for them upfront.',
+      img: '/assets/img/blog/culture.svg',
+      content: `
+        <p>Localization is more than translation. Arabic/RTL needs <strong>mirrored UI</strong>; 
+        languages like Russian change <strong>plural forms</strong>.</p>
+        <p>Emoji render differently across platforms—avoid using them as critical UI.</p>
+        <p>Bake i18n into design tokens and component APIs early.</p>
+      `
+    }
   ];
   const blogList = qs('#blogList');
   const blogSearch = qs('#blogSearch');
@@ -393,34 +449,59 @@
     return [...arr].sort((a,b)=>new Date(b.date)-new Date(a.date));
   }
   function applyView(){ blogList.classList.toggle('list', state.view==='list'); viewGrid.classList.toggle('active', state.view==='grid'); viewList.classList.toggle('active', state.view==='list'); }
+  const REMOVED_KEY = 'blog:removed:v1';
+  const removed = new Set(JSON.parse(localStorage.getItem(REMOVED_KEY) || '[]'));
+  function saveRemoved(){ localStorage.setItem(REMOVED_KEY, JSON.stringify([...removed])); }
   function renderPosts() {
     blogList.innerHTML = '';
     const q = blogSearch?.value?.trim().toLowerCase() || '';
-    const filtered = posts.filter(p => (activeTag === 'all' || p.tags.includes(activeTag)) &&
+    const filtered = posts.filter(p => !removed.has(p.id) && (activeTag === 'all' || p.tags.includes(activeTag)) &&
                       (p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q)));
-    const items = sortItems(filtered);
-    items.forEach(p => {
+    const items = sortItems(filtered).slice(0, 4);
+    items.forEach((p, idx) => {
       const li = document.createElement('li');
       li.className = 'post-card';
       li.setAttribute('role','listitem');
+      li.dataset.index = String(posts.indexOf(p));
       const h = hueFrom(p.title);
       const primary = (p.tags && p.tags[0]) || 'design';
       const img = p.img || tagLogos[primary];
       li.innerHTML = `
-        <div class="thumb" style="--h:${h}">
-          ${img ? `<img src="${img}" alt="${p.title} thumbnail" class="thumb-img" loading="lazy"/>` : ''}
+        <div class="thumb" style="--h:${h}" role="button" aria-label="Open article: ${p.title}" tabindex="0">
+          ${img ? `<img src=\"${img}\" alt=\"${p.title} thumbnail\" class=\"thumb-img\" loading=\"lazy\"/>` : ''}
         </div>
         <div class="pc-body">
           <div class="pc-head">
             <h3 class="pc-title">${hi(p.title, q)}</h3>
-            <span class="pc-date">${fmtDate(p.date)}</span>
+            <div class="pc-head-actions">
+              <span class="pc-date">${fmtDate(p.date)}</span>
+              <button class="icon-btn remove-btn" aria-label="Remove post" title="Remove">✕</button>
+            </div>
           </div>
           <p class="pc-excerpt">${hi(p.excerpt, q)}</p>
           <div class="pc-meta">
             <span class="pill">${estimateMin(p)} min</span>
-            ${p.tags.map(t=>`<span class="pill">#${t}</span>`).join('')}
+            ${p.tags.map(t=>`<span class=\"pill\">#${t}</span>`).join('')}
           </div>
         </div>`;
+      // only the logo/thumbnail opens the article
+      const thumb = li.querySelector('.thumb');
+      if (thumb) {
+        const open = () => openBlogFromIndex(Number(li.dataset.index||'0'));
+        thumb.addEventListener('click', open);
+        thumb.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); open(); } });
+      }
+      // remove button
+      const rm = li.querySelector('.remove-btn');
+      if (rm) {
+        rm.addEventListener('click', (e)=>{
+          e.stopPropagation();
+          if (confirm('Remove this post from view?')) {
+            const p = posts[Number(li.dataset.index||'0')];
+            if (p?.id) { removed.add(p.id); saveRemoved(); renderPosts(); }
+          }
+        });
+      }
       blogList.appendChild(li);
     });
     // reveal animation
@@ -439,6 +520,37 @@
   blogSort?.addEventListener('change', ()=>{ state.sort=blogSort.value; localStorage.setItem('blog:sort', state.sort); renderPosts(); });
   applyView();
   renderPosts();
+
+  // Blog modal (reader)
+  const bModal = qs('#blogModal');
+  if (bModal) {
+    const bDialog = qs('.blog-dialog', bModal);
+    const bClose = qs('.blog-close', bModal);
+    const bBackdrop = qs('.blog-backdrop', bModal);
+    const bTitle = qs('.blog-title', bModal);
+    const bDate = qs('.blog-date', bModal);
+    const bTags = qs('.blog-tags', bModal);
+    const bThumb = qs('.blog-thumb', bModal);
+    const bBody = qs('.blog-body', bModal);
+
+    function openBlogFromIndex(i){
+      const p = posts[i]; if (!p) return;
+      bTitle.textContent = p.title;
+      bDate.textContent = fmtDate(p.date);
+      bTags.innerHTML = (p.tags||[]).map(t=>`<li>#${t}</li>`).join('');
+      bThumb.style.backgroundImage = p.img ? `url('${p.img}')` : '';
+      bThumb.classList.toggle('has-img', Boolean(p.img));
+      bBody.innerHTML = p.content || `<p>${p.excerpt}</p>`;
+      bModal.classList.add('open');
+      bModal.setAttribute('aria-hidden','false');
+      setTimeout(()=> bClose?.focus(), 0);
+    }
+    window.openBlogFromIndex = openBlogFromIndex;
+    const close = () => { bModal.classList.remove('open'); bModal.setAttribute('aria-hidden','true'); };
+    bClose?.addEventListener('click', close);
+    bBackdrop?.addEventListener('click', close);
+    document.addEventListener('keydown', (e)=>{ if (e.key==='Escape' && bModal.classList.contains('open')) close(); });
+  }
 
   // About: counters and tabs + avatar parallax
   const about = qs('#about');
