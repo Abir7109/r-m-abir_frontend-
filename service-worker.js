@@ -1,5 +1,5 @@
 // Basic service worker for offline shell
-const CACHE = 'abir71-v39';
+const CACHE = 'abir71-v42';
 const ASSETS = [
   '/',
   '/index.html',
@@ -8,7 +8,8 @@ const ASSETS = [
   '/assets/icons/logo.svg',
   '/assets/icons/logo.png',
   '/assets/img/abir4.jpg',
-  '/assets/img/abir2.jpg'
+  '/assets/img/abir2.jpg',
+  '/assets/img/projects/ecommerce.png'
 ];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));

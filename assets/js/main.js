@@ -59,15 +59,26 @@
   }
   tick();
 
-  // Project filters + reveal
+  // Project filters + reveal + favorites
   const chips = qsa('.chip');
   const cards = qsa('.project-card');
+  const FAV_KEY = 'favorites:v1';
+  let favs = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]'));
+  function applyFavState(card){
+    const id = card.getAttribute('data-repo') || card.querySelector('.name')?.textContent?.trim() || card.getAttribute('data-rank');
+    const isFav = favs.has(id);
+    card.classList.toggle('favorited', isFav);
+    const btn = card.querySelector('[data-fav]');
+    if (btn) btn.setAttribute('aria-pressed', String(isFav));
+  }
+  cards.forEach(applyFavState);
+
   chips.forEach(ch => ch.addEventListener('click', () => {
     chips.forEach(c => c.classList.remove('active'));
     ch.classList.add('active');
     const f = ch.dataset.filter;
     cards.forEach(card => {
-      const show = f === 'all' || card.dataset.tech === f;
+      const show = f === 'all' || card.dataset.tech === f || (f === 'fav' && card.classList.contains('favorited'));
       card.style.display = show ? '' : 'none';
       card.setAttribute('aria-hidden', show ? 'false' : 'true');
     });
@@ -77,6 +88,41 @@
     es.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal'); });
   }, { threshold: 0.2 });
   qsa('.project-card.neo').forEach(c => projIo.observe(c));
+
+  // Favorites toggle + keyboard shortcut (f)
+  qsa('.project-card .fav-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = e.currentTarget.closest('.project-card');
+      const id = card.getAttribute('data-repo') || card.querySelector('.name')?.textContent?.trim() || card.getAttribute('data-rank');
+      if (favs.has(id)) favs.delete(id); else favs.add(id);
+      localStorage.setItem(FAV_KEY, JSON.stringify([...favs]));
+      applyFavState(card);
+    });
+    const card = btn.closest('.project-card');
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', (ev) => {
+      if (ev.key.toLowerCase() === 'f') { ev.preventDefault(); btn.click(); }
+    });
+  });
+
+  // Share buttons
+  qsa('.project-card .share-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = e.currentTarget.closest('.project-card');
+      const title = card.querySelector('.name')?.textContent?.trim() || 'Project';
+      const url = card.getAttribute('data-live') || location.href;
+      const text = `${title} — ${url}`;
+      if (navigator.share) {
+        navigator.share({ title, url, text }).catch(() => {/* ignore */});
+      } else if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          btn.classList.add('ok'); setTimeout(() => btn.classList.remove('ok'), 800);
+        });
+      } else {
+        alert(text);
+      }
+    });
+  });
 
   // Tilt on hover
   qsa('.project-card.neo').forEach(card => {
