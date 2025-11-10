@@ -255,7 +255,10 @@
         const wrap = c.closest('.circle');
         if (wrap) {
           let v = wrap.querySelector('.circle-val');
-          if (!v) { v = document.createElement('div'); v.className = 'circle-val'; wrap.appendChild(v); }
+          if (!v) { v = document.createElement('div'); v.className = 'circle-val';
+            const meta = wrap.querySelector('.circle-meta');
+            if (meta) wrap.insertBefore(v, meta); else wrap.appendChild(v);
+          }
           const nstart = performance.now(); const ndur = 900; 
           function num(ts){
             const t = Math.min(1, (ts - nstart)/ndur);
