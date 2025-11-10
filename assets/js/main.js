@@ -165,9 +165,13 @@
     function computeScrollProgress() {
       const rect = routeEl.getBoundingClientRect();
       const vh = window.innerHeight;
-      const start = vh * 0.15; const end = rect.height + vh * 0.3;
+      // Faster progression: start sooner and finish earlier
+      const start = vh * 0.10; 
+      const end = rect.height * 0.7 + vh * 0.2; // shorter span to complete sooner
       const y = Math.min(Math.max(start - rect.top, 0), end);
-      return y / end; // 0..1
+      const raw = y / end; // 0..1
+      const SPEED = 1.7; // >1 = faster
+      return Math.min(1, raw * SPEED);
     }
 
     function update() {
