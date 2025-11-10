@@ -127,11 +127,17 @@
       cps.forEach(cp => {
         const p = pathEl.getPointAtLength(cp.pos * len);
         const el = document.createElement('div');
-        el.className = 'checkpoint ' + (cp.pos < 0.5 ? 'above' : 'below');
+        el.className = 'checkpoint'; // always position above
         el.style.left = (p.x / pathEl.ownerSVGElement.viewBox.baseVal.width * 100) + '%';
         el.style.top = (p.y / pathEl.ownerSVGElement.viewBox.baseVal.height * 100) + '%';
         el.innerHTML = `<div class=\"dot\"></div><span class=\"pill\">${cp.year}</span><div class=\"card\"><strong>${cp.year}</strong><br/>${cp.text}</div>`;
         routeEl.appendChild(el);
+        // prevent overflow horizontally
+        const card = el.querySelector('.card');
+        const rC = routeEl.getBoundingClientRect();
+        const rK = card.getBoundingClientRect();
+        if (rK.right > rC.right - 8) el.classList.add('align-right');
+        else if (rK.left < rC.left + 8) el.classList.add('align-left');
         cp._el = el; cp._abs = cp.pos * len;
       });
       return len;
