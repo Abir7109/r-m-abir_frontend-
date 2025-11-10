@@ -763,18 +763,42 @@
   // Load learned responses from localStorage
   const LEARNED_KEY = 'bot:learned:v1';
   let learnedResponses = JSON.parse(localStorage.getItem(LEARNED_KEY) || '[]');
+  let sharedKnowledge = [];
+  
+  // Load shared knowledge base from server
+  fetch('/assets/data/bot-knowledge.json')
+    .then(res => res.json())
+    .then(data => {
+      sharedKnowledge = data.learnedResponses || [];
+      console.log('✅ Loaded shared knowledge base:', sharedKnowledge.length, 'entries');
+    })
+    .catch(err => {
+      console.warn('⚠️ Could not load shared knowledge base:', err);
+    });
   
   // Find similar learned response
   function findLearnedResponse(query) {
     const q = query.toLowerCase().trim();
+    
+    // Check shared knowledge first (available to all users)
+    for (const item of sharedKnowledge) {
+      const itemQuestion = item.question.toLowerCase();
+      if (itemQuestion === q) return '🌐 ' + item.answer; // Globe emoji for shared
+      
+      const qWords = q.split(/\s+/).filter(w => w.length > 3);
+      const lWords = itemQuestion.split(/\s+/).filter(w => w.length > 3);
+      const matches = qWords.filter(w => lWords.some(lw => lw.includes(w) || w.includes(lw)));
+      if (matches.length >= Math.min(2, qWords.length)) return '🌐 ' + item.answer;
+    }
+    
+    // Then check local learned responses (this user only)
     for (const item of learnedResponses) {
-      // Check for exact match or partial match
-      if (item.question.toLowerCase() === q) return item.answer;
-      // Check if query contains key words from learned question
+      if (item.question.toLowerCase() === q) return '💡 ' + item.answer; // Bulb emoji for local
+      
       const qWords = q.split(/\s+/).filter(w => w.length > 3);
       const lWords = item.question.toLowerCase().split(/\s+/).filter(w => w.length > 3);
       const matches = qWords.filter(w => lWords.some(lw => lw.includes(w) || w.includes(lw)));
-      if (matches.length >= Math.min(2, qWords.length)) return item.answer;
+      if (matches.length >= Math.min(2, qWords.length)) return '💡 ' + item.answer;
     }
     return null;
   }
@@ -1055,6 +1079,58 @@
 
   // Footer year
   qs('#year').textContent = new Date().getFullYear();
+  
+  // Admin: Export learned knowledge (accessible via console)
+  window.exportBotKnowledge = function() {
+    if (learnedResponses.length === 0) {
+      console.log('⚠️ No locally learned responses to export.');
+      return;
+    }
+    
+    const exportData = {
+      version: '1.0',
+      lastUpdated: new Date().toISOString().split('T')[0],
+      learnedResponses: learnedResponses.map(item => ({
+        question: item.question,
+        answer: item.answer,
+        category: 'user-contributed'
+      }))
+    };
+    
+    const json = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'bot-knowledge-export.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    console.log('✅ Exported', learnedResponses.length, 'learned responses!');
+    console.log('📝 Next steps:');
+    console.log('1. Merge this with assets/data/bot-knowledge.json');
+    console.log('2. Commit and push to make it available to all users');
+  };
+  
+  // Admin: View all learned knowledge
+  window.viewBotKnowledge = function() {
+    console.log('🌐 Shared Knowledge (' + sharedKnowledge.length + ' entries):', sharedKnowledge);
+    console.log('💡 Local Knowledge (' + learnedResponses.length + ' entries):', learnedResponses);
+  };
+  
+  // Admin: Clear local knowledge
+  window.clearLocalKnowledge = function() {
+    if (confirm('Are you sure you want to clear all locally learned responses?')) {
+      localStorage.removeItem(LEARNED_KEY);
+      learnedResponses = [];
+      console.log('✅ Local knowledge cleared!');
+    }
+  };
+  
+  console.log('🤖 Bot Admin Commands Available:');
+  console.log('- exportBotKnowledge() - Download learned responses as JSON');
+  console.log('- viewBotKnowledge() - View all knowledge (shared + local)');
+  console.log('- clearLocalKnowledge() - Clear locally learned responses');
 
   // PWA registration
   if ('serviceWorker' in navigator) {
