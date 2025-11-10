@@ -148,7 +148,7 @@ input:checked + .slider:before { transform: translateX(22px); }
 .circle { position: relative; display: grid; place-items: center; gap: 6px; padding: 8px; border-radius: 12px; min-width: 0; }
 .circle svg { transform: rotate(-90deg); width: clamp(88px, 28vw, 120px); height: auto; }
 .circle-track { fill: none; stroke: rgba(255,255,255,0.15); stroke-width: 10; }
-.circle-progress { fill: none; stroke: #9fd3ff; filter: drop-shadow(0 0 6px rgba(159,211,255,0.5)); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 327; stroke-dashoffset: 327; transition: stroke-dashoffset 1.6s ease-out; }
+.circle-progress { fill: none; stroke: #9fd3ff; filter: drop-shadow(0 0 2px rgba(159,211,255,0.25)); stroke-width: 10; stroke-linecap: round; stroke-dasharray: 327; stroke-dashoffset: 327; transition: stroke-dashoffset 1.6s ease-out; }
 .circle-val { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 800; color: var(--c-text); text-shadow: 0 1px 6px rgba(0,0,0,0.4); pointer-events: none; }
 .circle-meta { text-align: center; margin-top: 4px; }
 .circle-meta strong { display: block; }
