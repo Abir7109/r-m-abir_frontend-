@@ -96,20 +96,29 @@ body {
   filter: drop-shadow(0 0 8px var(--cyan));
 }
 
-/* Hero portrait frame */
+/* Hero portrait frame (toned down) */
 .neon-avatar-wrapper {
   position: relative;
 }
 .neon-avatar-wrapper::after {
   content: "";
   position: absolute;
-  inset: -8px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(38,226,255,0.35), rgba(0,64,108,0.15));
-  filter: blur(12px);
-  z-index: -1;
+  inset: -6px;
+  border-radius: 14px;
+  background: transparent;
 }
 .neon-avatar {
-  border: 1px solid rgba(38,226,255,0.35);
-  box-shadow: 0 0 20px rgba(38,226,255,0.25), 0 0 60px rgba(0,64,108,0.25);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+/* Modern minimal base */
+:root {
+  --bg: #0b1220;
+  --fg: #e6eaef;
+}
+
+body {
+  background: var(--bg) !important;
+  color: var(--fg);
 }

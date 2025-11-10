@@ -28,8 +28,8 @@ export default function Gallery() {
             initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.03 }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={g.url} alt={g.caption ?? ""} className="h-32 w-full object-contain mix-blend-screen" />
-            <div className="pointer-events-none absolute inset-0 ring-1 ring-cyan-300/10 group-hover:ring-cyan-300/40" />
+            <img src={g.url} alt={g.caption ?? ""} className="h-32 w-full object-contain" />
+            <div className="pointer-events-none absolute inset-0 ring-1 ring-white/5 group-hover:ring-white/15" />
             {g.caption && (
               <div className="absolute inset-x-0 bottom-0 bg-black/50 px-2 py-1 text-xs text-zinc-200">
                 {g.caption}

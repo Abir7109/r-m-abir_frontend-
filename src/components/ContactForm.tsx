@@ -39,7 +39,7 @@ export default function ContactForm() {
       </div>
       <textarea name="message" placeholder="Message" className="min-h-32 w-full rounded border border-white/10 bg-black/20 px-3 py-2" required />
       <div className="flex items-center gap-3">
-        <button type="submit" className="button-neon rounded px-4 py-2" disabled={loading}>{loading?"Sending...":"Send"}</button>
+        <button type="submit" className="rounded bg-white/10 px-4 py-2 text-white hover:bg-white/15" disabled={loading}>{loading?"Sending...":"Send"}</button>
         {status && <span className="text-sm text-zinc-300/80">{status}</span>}
       </div>
     </form>

@@ -50,8 +50,8 @@ export default function Projects() {
   return (
     <div className="mx-auto max-w-6xl">
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-zinc-300/80">Interactive cards with tech stack and previews.</p>
-        <button className="button-neon rounded-full px-4 py-1" onClick={()=>setOpen(true)}>Add New Project</button>
+        <p className="text-zinc-400">Projects you’ve built and shipped.</p>
+        <button className="rounded-full border border-white/10 px-4 py-1 text-sm text-zinc-200 hover:bg-white/5" onClick={()=>setOpen(true)}>Add New Project</button>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {items.map((p, i) => (
@@ -60,16 +60,16 @@ export default function Projects() {
             initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}
             whileHover={{ y: -2 }}
           >
-            <h3 className="glow text-lg font-semibold">{p.title}</h3>
-            <p className="mt-1 text-sm text-zinc-300/80">{p.description}</p>
-            <div className="mt-2 flex flex-wrap gap-2 text-xs text-cyan-200/80">
+            <h3 className="text-lg font-semibold text-white">{p.title}</h3>
+            <p className="mt-1 text-sm text-zinc-300">{p.description}</p>
+            <div className="mt-2 flex flex-wrap gap-2 text-xs text-zinc-300">
               {p.tech?.map((t) => (
-                <span key={t} className="rounded-full border border-cyan-400/30 px-2 py-0.5">{t}</span>
+                <span key={t} className="rounded-full border border-white/15 px-2 py-0.5">{t}</span>
               ))}
             </div>
             <div className="mt-3 flex gap-3 text-sm">
-              {p.liveUrl && <a className="button-neon rounded px-2 py-0.5" href={p.liveUrl} target="_blank">Live</a>}
-              {p.repoUrl && <a className="button-neon rounded px-2 py-0.5" href={p.repoUrl} target="_blank">Repo</a>}
+              {p.liveUrl && <a className="rounded border border-white/10 px-2 py-0.5 text-zinc-200 hover:bg-white/5" href={p.liveUrl} target="_blank">Live</a>}
+              {p.repoUrl && <a className="rounded border border-white/10 px-2 py-0.5 text-zinc-200 hover:bg-white/5" href={p.repoUrl} target="_blank">Repo</a>}
             </div>
           </motion.article>
         ))}
@@ -85,7 +85,7 @@ export default function Projects() {
           <input name="repoUrl" placeholder="Repo URL" className="w-full rounded border border-white/10 bg-black/20 px-3 py-2" />
           <div className="flex justify-end gap-2">
             <button type="button" onClick={()=>setOpen(false)} className="rounded border border-white/10 px-3 py-1">Cancel</button>
-            <button type="submit" className="button-neon rounded px-3 py-1">Save</button>
+            <button type="submit" className="rounded bg-white/10 px-3 py-1 text-white hover:bg-white/15">Save</button>
           </div>
         </form>
       </Modal>
