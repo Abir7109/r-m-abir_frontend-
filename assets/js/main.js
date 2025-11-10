@@ -105,6 +105,47 @@
     });
   }
 
+  // Journey route animation and checkpoints
+  const routeEl = qs('#journeyRoute');
+  const path = qs('#routePath');
+  const dot = qs('#routeDot');
+  if (routeEl && path && dot) {
+    const cps = [
+      { pos: 0.05, year: '2016', text: 'Start Coding' },
+      { pos: 0.35, year: '2020', text: '1st Successful Website' },
+      { pos: 0.65, year: '2022', text: '1st Income' },
+      { pos: 0.95, year: '2025', text: 'Professional Coder' },
+    ];
+    const len = path.getTotalLength();
+
+    // place checkpoints
+    cps.forEach(cp => {
+      const p = path.getPointAtLength(cp.pos * len);
+      const el = document.createElement('div');
+      el.className = 'checkpoint';
+      el.style.left = (p.x / path.ownerSVGElement.viewBox.baseVal.width * 100) + '%';
+      el.style.top = (p.y / path.ownerSVGElement.viewBox.baseVal.height * 100) + '%';
+      el.innerHTML = `<div class="dot"></div><div class="label"><strong>${cp.year}</strong> · ${cp.text}</div>`;
+      routeEl.appendChild(el);
+      cp._el = el; cp._abs = cp.pos * len;
+    });
+
+    let t0 = null; const dur = 12000; // 12s
+    function step(ts) {
+      if (!t0) t0 = ts; const e = ts - t0; const r = (e % dur) / dur; // 0..1
+      const pt = path.getPointAtLength(r * len);
+      dot.setAttribute('cx', pt.x);
+      dot.setAttribute('cy', pt.y);
+      // glow checkpoints that are passed
+      cps.forEach(cp => {
+        const hit = r * len >= cp._abs - 2; // small lead
+        cp._el.classList.toggle('hit', hit);
+      });
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
   // Blog posts (sample data)
   const posts = [
     { title: 'Designing with Motion', tags: ['design'], date: '2025-10-01', excerpt: 'Principles for tasteful animation.' },

@@ -64,7 +64,7 @@
         <h2 id="about-title" data-i18n="about">About</h2>
         <div class="about-grid">
           <article class="card profile" aria-label="Profile">
-            <div class="avatar" role="img" aria-label="Profile photo placeholder"></div>
+            <div class="avatar" role="img" aria-label="Profile photo"></div>
             <div class="profile-body">
               <h3>R.M.Abir (AM)</h3>
               <p>
@@ -76,32 +76,49 @@
               </div>
             </div>
           </article>
-
-          <article class="card skills" aria-label="Skills">
-            <h3>Skills</h3>
-            <ul class="skills-grid" role="list">
-              <li class="tile">Full‑Stack (TS, Node, Python, Go)</li>
-              <li class="tile">Frontend (React, Animations)</li>
-              <li class="tile">UI/UX & Prototyping</li>
-              <li class="tile">DevOps (CI/CD, Docker)</li>
-              <li class="tile">Databases (Postgres, Prisma)</li>
-              <li class="tile">PWA & Performance</li>
-            </ul>
-          </article>
-
-          <article class="card timeline" aria-label="Timeline">
-            <h3>Journey</h3>
-            <div class="road-car" aria-hidden="true"></div>
-            <ol class="timeline-list">
-              <li><time>2025</time> Freelance/Consulting</li>
-              <li><time>2024</time> Lead Dev — Product Launches</li>
-              <li><time>2023</time> Certifications & OSS</li>
-              <li><time>2022</time> CS Degree & Internships</li>
-            </ol>
-          </article>
         </div>
       </section>
 
+      <!-- Skills -->
+      <section id="skills" class="section skills-section" aria-labelledby="skills-title">
+        <h2 id="skills-title">Skills</h2>
+        <p class="muted">Core stack and tools I use daily.</p>
+        <ul class="skills-grid" role="list">
+          <li class="tile">TypeScript · React · Next.js</li>
+          <li class="tile">Node.js · Express · FastAPI</li>
+          <li class="tile">UI Motion · Framer Motion · GSAP</li>
+          <li class="tile">DevOps · Docker · CI/CD</li>
+          <li class="tile">Postgres · Prisma · SQL</li>
+          <li class="tile">PWA · Performance · A11y</li>
+        </ul>
+        <div class="meters">
+          <div class="meter"><span style="--p:92%"></span><label>TypeScript</label></div>
+          <div class="meter"><span style="--p:88%"></span><label>React</label></div>
+          <div class="meter"><span style="--p:84%"></span><label>Node.js</label></div>
+          <div class="meter"><span style="--p:80%"></span><label>Postgres</label></div>
+        </div>
+      </section>
+
+      <!-- Journey -->
+      <section id="journey" class="section journey-section" aria-labelledby="journey-title">
+        <h2 id="journey-title">Journey</h2>
+        <div class="journey-route" id="journeyRoute" aria-label="Career route">
+          <svg viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet" class="route-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="routeGrad" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0%" stop-color="#1A3D64" />
+                <stop offset="100%" stop-color="#1D546C" />
+              </linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path id="routePath" d="M50,250 C200,120 300,120 450,220 S700,300 950,120" fill="none" stroke="url(#routeGrad)" stroke-width="10" stroke-linecap="round"/>
+            <circle id="routeDot" r="7" fill="#9fd3ff" filter="url(#glow)" />
+          </svg>
+          <!-- Checkpoint labels will be positioned by JS -->
+        </div>
+      </section>
+
+      <!-- Projects -->
       <!-- Projects -->
       <section id="projects" class="section projects" aria-labelledby="projects-title">
         <h2 id="projects-title" data-i18n="projects">Projects</h2>
