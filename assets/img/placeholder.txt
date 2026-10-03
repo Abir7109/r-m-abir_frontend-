@@ -1,2 +1,0 @@
-Put your high-resolution hero image here named `hero.jpg`.
-Recommended: 2400×1600+, subject centered, room for overlay.
